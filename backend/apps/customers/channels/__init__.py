@@ -8,7 +8,7 @@ from apps.customers.channels.console import ConsoleChannel
 
 CHANNELS: dict[str, type] = {
     "console": ConsoleChannel,
-    # "viber": ViberChannel,  — via a provider (TurboSMS etc.) with SMS fallback
+    # "viber": ViberChannel,  # via a provider (TurboSMS etc.) with SMS fallback
     # "sms": SmsChannel,
 }
 

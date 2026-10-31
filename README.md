@@ -6,15 +6,21 @@ what the labour costs and the total. The site's interface is in Ukrainian.
 
 ## Features
 
-- **Renovation calculator**: floors and walls, door and window openings, laying patterns, waste
-  allowance, glue, grout, primer, waterproofing and labour. Estimates can be saved, shared, exported
-  to PDF and added to the cart in one click.
-- **Catalog**: categories, filters and facets, trigram search, CSV import/export in the admin.
-- **Cart and checkout**: stock reservation, Nova Poshta delivery, LiqPay payments, guest checkout.
-- **Customer accounts**: login via a Telegram bot or a one-time code, saved addresses, order
-  history and estimates. Tradespeople ("masters") see their own prices.
-- **Back office**: the Django admin (Unfold) with roles, change history and a dashboard.
-  Managers get Telegram and email notifications.
+The calculator handles floors and walls with door and window openings, four laying patterns and a
+waste allowance for each. Besides tiles it counts glue, grout, primer, waterproofing and labour.
+An estimate can be saved, shared by link, downloaded as a PDF or moved into the cart.
+
+The catalog has categories, faceted filters and trigram search. Staff import and export products
+as CSV from the admin.
+
+Checkout reserves stock, quotes Nova Poshta delivery and takes payment through LiqPay. Guests can
+order without an account. Customers who log in (through a Telegram bot or a one-time code) keep
+their addresses, orders and estimates. Tradespeople, called "masters" in the code, see their own
+prices.
+
+Staff work in the Django admin (Unfold theme), which has roles, change history and a dashboard.
+Managers hear about new orders, payments and leads in Telegram, and customers get order updates
+by email.
 
 ## Tech stack
 
@@ -186,7 +192,7 @@ calculator settings with default materials, and press "Publish version".
 
 ### 2. Site on Vercel
 
-Import the repository into Vercel and set **Root Directory** to `web`. Vercel detects Next.js on
+Import the repository into Vercel and set Root Directory to `web`. Vercel detects Next.js on
 its own. The environment variables are listed in `web/.env.example`:
 
 | Variable | Value |
