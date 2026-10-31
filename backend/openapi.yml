@@ -1,0 +1,2567 @@
+openapi: 3.0.3
+info:
+  title: Keramike API
+  version: 1.0.0
+  description: 'Публічне API магазину кераміки: каталог, калькулятор, кошик, замовлення.'
+paths:
+  /api/v1/account/addresses:
+    get:
+      operationId: account_addresses_list
+      tags:
+      - account
+      security:
+      - customerToken: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Address'
+          description: ''
+    post:
+      operationId: account_addresses_create
+      tags:
+      - account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddressRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AddressRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AddressRequest'
+        required: true
+      security:
+      - customerToken: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+          description: ''
+  /api/v1/account/addresses/{id}:
+    get:
+      operationId: account_addresses_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - account
+      security:
+      - customerToken: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+          description: ''
+    patch:
+      operationId: account_addresses_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedAddressRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedAddressRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedAddressRequest'
+      security:
+      - customerToken: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+          description: ''
+    delete:
+      operationId: account_addresses_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - account
+      security:
+      - customerToken: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/account/estimates:
+    get:
+      operationId: account_estimates_list
+      description: Кошториси, збережені клієнтом після входу.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - account
+      security:
+      - customerToken: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAccountEstimateList'
+          description: ''
+  /api/v1/account/me:
+    get:
+      operationId: account_me_retrieve
+      tags:
+      - account
+      security:
+      - customerToken: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+          description: ''
+    patch:
+      operationId: account_me_partial_update
+      tags:
+      - account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCustomerRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCustomerRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCustomerRequest'
+      security:
+      - customerToken: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+          description: ''
+  /api/v1/account/orders:
+    get:
+      operationId: account_orders_list
+      description: Історія замовлень клієнта, разом із гостьовими з тим самим телефоном.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - account
+      security:
+      - customerToken: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedPublicOrderList'
+          description: ''
+  /api/v1/auth/code/request:
+    post:
+      operationId: auth_code_request_create
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CodeRequestRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CodeRequestRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CodeRequestRequest'
+        required: true
+      security:
+      - customerToken: []
+      - {}
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/auth/code/verify:
+    post:
+      operationId: auth_code_verify_create
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CodeVerifyRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CodeVerifyRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CodeVerifyRequest'
+        required: true
+      security:
+      - customerToken: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResult'
+          description: ''
+  /api/v1/auth/logout:
+    post:
+      operationId: auth_logout_create
+      tags:
+      - auth
+      security:
+      - customerToken: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/auth/logout-all:
+    post:
+      operationId: auth_logout_all_create
+      tags:
+      - auth
+      security:
+      - customerToken: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/auth/methods:
+    get:
+      operationId: auth_methods_retrieve
+      tags:
+      - auth
+      security:
+      - customerToken: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthMethods'
+          description: ''
+  /api/v1/auth/telegram/poll:
+    post:
+      operationId: auth_telegram_poll_create
+      description: Сайт опитує кожні 2 секунди, поки статус не confirmed або expired
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TelegramPollRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TelegramPollRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TelegramPollRequest'
+        required: true
+      security:
+      - customerToken: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelegramPollResult'
+          description: ''
+  /api/v1/auth/telegram/start:
+    post:
+      operationId: auth_telegram_start_create
+      tags:
+      - auth
+      security:
+      - customerToken: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelegramStart'
+          description: ''
+  /api/v1/auth/telegram/webhook:
+    post:
+      operationId: auth_telegram_webhook_create
+      description: Викликає Telegram, не фронтенд
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: {}
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              additionalProperties: {}
+          multipart/form-data:
+            schema:
+              type: object
+              additionalProperties: {}
+      security:
+      - customerToken: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/calc/config:
+    get:
+      operationId: calc_config_retrieve
+      description: Формат як у calc-cases/settings.json
+      tags:
+      - calc
+      security:
+      - customerToken: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/calc/estimate:
+    post:
+      operationId: calc_estimate_create
+      tags:
+      - calc
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CalcInputRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CalcInputRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CalcInputRequest'
+        required: true
+      security:
+      - customerToken: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalcResult'
+          description: ''
+  /api/v1/calc/estimates:
+    post:
+      operationId: calc_estimates_create
+      tags:
+      - calc
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EstimateCreateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EstimateCreateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EstimateCreateRequest'
+        required: true
+      security:
+      - customerToken: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EstimateCreated'
+          description: ''
+  /api/v1/calc/estimates/{code}:
+    get:
+      operationId: calc_estimates_retrieve
+      parameters:
+      - in: path
+        name: code
+        schema:
+          type: string
+        required: true
+      tags:
+      - calc
+      security:
+      - customerToken: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EstimateDetail'
+          description: ''
+  /api/v1/calc/estimates/{code}/pdf:
+    get:
+      operationId: calc_estimates_pdf_retrieve
+      parameters:
+      - in: path
+        name: code
+        schema:
+          type: string
+        required: true
+      tags:
+      - calc
+      security:
+      - customerToken: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PdfStatus'
+          description: ''
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PdfStatus'
+          description: ''
+  /api/v1/carts/:
+    post:
+      operationId: carts_create
+      tags:
+      - carts
+      security:
+      - customerToken: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+          description: ''
+  /api/v1/carts/{token}:
+    get:
+      operationId: carts_retrieve
+      parameters:
+      - in: path
+        name: token
+        schema:
+          type: string
+        required: true
+      tags:
+      - carts
+      security:
+      - customerToken: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+          description: ''
+  /api/v1/carts/{token}/from-estimate/{code}:
+    post:
+      operationId: carts_from_estimate_create
+      parameters:
+      - in: path
+        name: code
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: token
+        schema:
+          type: string
+        required: true
+      tags:
+      - carts
+      security:
+      - customerToken: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+          description: ''
+  /api/v1/carts/{token}/items:
+    post:
+      operationId: carts_items_create
+      parameters:
+      - in: path
+        name: token
+        schema:
+          type: string
+        required: true
+      tags:
+      - carts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddItemRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AddItemRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AddItemRequest'
+        required: true
+      security:
+      - customerToken: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+          description: ''
+  /api/v1/carts/{token}/items/{item_id}:
+    patch:
+      operationId: carts_items_partial_update
+      parameters:
+      - in: path
+        name: item_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: token
+        schema:
+          type: string
+        required: true
+      tags:
+      - carts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUpdateItemRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUpdateItemRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUpdateItemRequest'
+      security:
+      - customerToken: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+          description: ''
+    delete:
+      operationId: carts_items_destroy
+      parameters:
+      - in: path
+        name: item_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: token
+        schema:
+          type: string
+        required: true
+      tags:
+      - carts
+      security:
+      - customerToken: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/v1/catalog/categories:
+    get:
+      operationId: catalog_categories_retrieve
+      description: 'Дерево: slug, name, children'
+      tags:
+      - catalog
+      security:
+      - customerToken: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/catalog/facets:
+    get:
+      operationId: catalog_facets_retrieve
+      description: Ті самі фільтри, що й /products
+      tags:
+      - catalog
+      security:
+      - customerToken: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/catalog/prices:
+    post:
+      operationId: catalog_prices_create
+      description: |-
+        Ціни для поточного клієнта. Каталог кешується з роздрібними цінами для всіх,
+        а сайт накладає ціни майстра поверх нього цим запитом.
+      tags:
+      - catalog
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PricesRequestRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PricesRequestRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PricesRequestRequest'
+        required: true
+      security:
+      - customerToken: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PricesResponse'
+          description: ''
+  /api/v1/catalog/products:
+    get:
+      operationId: catalog_products_list
+      parameters:
+      - in: query
+        name: application
+        schema:
+          type: string
+          enum:
+          - floor
+          - outdoor
+          - wall
+        description: |-
+          * `wall` - Стіна
+          * `floor` - Підлога
+          * `outdoor` - Вулиця
+      - in: query
+        name: category
+        schema:
+          type: string
+      - in: query
+        name: collection
+        schema:
+          type: string
+      - in: query
+        name: color
+        schema:
+          type: string
+      - in: query
+        name: ids
+        schema:
+          type: array
+          items:
+            type: integer
+        description: 'Через кому: 1,2,3'
+        explode: false
+        style: form
+      - in: query
+        name: in_stock
+        schema:
+          type: boolean
+      - in: query
+        name: kind
+        schema:
+          type: array
+          items:
+            type: string
+            title: Тип
+            enum:
+            - accessory
+            - decor
+            - glue
+            - grout
+            - mosaic
+            - primer
+            - tile
+            - waterproofing
+        description: |-
+          * `tile` - Плитка
+          * `mosaic` - Мозаїка
+          * `decor` - Декор
+          * `glue` - Клей
+          * `grout` - Затирка
+          * `primer` - Ґрунтовка
+          * `waterproofing` - Гідроізоляція
+          * `accessory` - Аксесуар
+        explode: true
+        style: form
+      - in: query
+        name: manufacturer
+        schema:
+          type: string
+      - in: query
+        name: material
+        schema:
+          type: string
+          title: Матеріал
+          enum:
+          - ceramic
+          - porcelain
+        description: |-
+          * `ceramic` - Кераміка
+          * `porcelain` - Керамограніт
+      - in: query
+        name: ordering
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - -name
+            - -new
+            - -price
+            - name
+            - new
+            - price
+        description: |-
+          Впорядкування
+
+          * `price` - Price
+          * `-price` - Price (по спадаючій)
+          * `new` - Нових
+          * `-new` - Нових (по спадаючій)
+          * `name` - Name
+          * `-name` - Name (по спадаючій)
+        explode: false
+        style: form
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: query
+        name: price_max
+        schema:
+          type: integer
+      - in: query
+        name: price_min
+        schema:
+          type: integer
+      - in: query
+        name: room
+        schema:
+          type: string
+          enum:
+          - bathroom
+          - hallway
+          - kitchen
+          - living
+          - terrace
+          - toilet
+        description: |-
+          * `bathroom` - Ванна
+          * `toilet` - Туалет
+          * `kitchen` - Кухня
+          * `hallway` - Коридор
+          * `terrace` - Тераса
+          * `living` - Житлова кімната
+      - in: query
+        name: size
+        schema:
+          type: string
+        description: Наприклад 600x600
+      - in: query
+        name: surface
+        schema:
+          type: string
+      tags:
+      - catalog
+      security:
+      - customerToken: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedProductCardList'
+          description: ''
+  /api/v1/catalog/products/{slug}:
+    get:
+      operationId: catalog_products_retrieve
+      parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - catalog
+      security:
+      - customerToken: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDetail'
+          description: ''
+  /api/v1/catalog/search:
+    get:
+      operationId: catalog_search_list
+      parameters:
+      - in: query
+        name: q
+        schema:
+          type: string
+      tags:
+      - catalog
+      security:
+      - customerToken: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductCard'
+          description: ''
+  /api/v1/delivery/np/cities:
+    get:
+      operationId: delivery_np_cities_list
+      parameters:
+      - in: query
+        name: q
+        schema:
+          type: string
+      tags:
+      - delivery
+      security:
+      - customerToken: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/City'
+          description: ''
+  /api/v1/delivery/np/warehouses:
+    get:
+      operationId: delivery_np_warehouses_list
+      parameters:
+      - in: query
+        name: city
+        schema:
+          type: string
+      - in: query
+        name: q
+        schema:
+          type: string
+      tags:
+      - delivery
+      security:
+      - customerToken: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Warehouse'
+          description: ''
+  /api/v1/delivery/quote:
+    post:
+      operationId: delivery_quote_create
+      description: cost_kop = null означає, що вартість уточнить менеджер
+      tags:
+      - delivery
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuoteRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/QuoteRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/QuoteRequest'
+        required: true
+      security:
+      - customerToken: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/leads/:
+    post:
+      operationId: leads_create
+      tags:
+      - leads
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LeadRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LeadRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/LeadRequest'
+        required: true
+      security:
+      - customerToken: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeadCreated'
+          description: ''
+  /api/v1/orders/:
+    post:
+      operationId: orders_create
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+      tags:
+      - orders
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckoutRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CheckoutRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CheckoutRequest'
+        required: true
+      security:
+      - customerToken: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckoutResult'
+          description: ''
+  /api/v1/orders/{token}:
+    get:
+      operationId: orders_retrieve
+      parameters:
+      - in: path
+        name: token
+        schema:
+          type: string
+        required: true
+      tags:
+      - orders
+      security:
+      - customerToken: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicOrder'
+          description: ''
+  /api/v1/orders/{token}/pay:
+    post:
+      operationId: orders_pay_create
+      parameters:
+      - in: path
+        name: token
+        schema:
+          type: string
+        required: true
+      tags:
+      - orders
+      security:
+      - customerToken: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentLink'
+          description: ''
+  /api/v1/payments/webhook/{provider}:
+    post:
+      operationId: payments_webhook_create
+      description: Викликає платіжний сервіс, не фронтенд
+      parameters:
+      - in: path
+        name: provider
+        schema:
+          type: string
+        required: true
+      tags:
+      - payments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: {}
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              additionalProperties: {}
+      security:
+      - customerToken: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+components:
+  schemas:
+    AccountEstimate:
+      type: object
+      properties:
+        code:
+          type: string
+        title:
+          type: string
+        total_kop:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        room:
+          type: string
+          readOnly: true
+      required:
+      - code
+      - created_at
+      - room
+      - title
+      - total_kop
+    AddItemRequest:
+      type: object
+      properties:
+        product_id:
+          type: integer
+        qty:
+          type: integer
+          maximum: 10000
+          minimum: 1
+        group_label:
+          type: string
+          minLength: 1
+          default: ''
+          maxLength: 100
+      required:
+      - product_id
+      - qty
+    Address:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        label:
+          type: string
+          title: Назва
+          maxLength: 60
+        delivery_method:
+          allOf:
+          - $ref: '#/components/schemas/AddressDeliveryMethodEnum'
+          title: Спосіб
+        city_ref:
+          type: string
+          maxLength: 64
+        city_name:
+          type: string
+          title: Місто
+          maxLength: 200
+        warehouse_ref:
+          type: string
+          maxLength: 64
+        warehouse_name:
+          type: string
+          title: Відділення
+          maxLength: 255
+        address:
+          type: string
+          title: Адреса
+          maxLength: 500
+        is_default:
+          type: boolean
+          title: Основна
+      required:
+      - delivery_method
+      - id
+    AddressDeliveryMethodEnum:
+      enum:
+      - local
+      - nova_poshta
+      type: string
+      description: |-
+        * `local` - Доставка по місту
+        * `nova_poshta` - Нова пошта
+    AddressRequest:
+      type: object
+      properties:
+        label:
+          type: string
+          title: Назва
+          maxLength: 60
+        delivery_method:
+          allOf:
+          - $ref: '#/components/schemas/AddressDeliveryMethodEnum'
+          title: Спосіб
+        city_ref:
+          type: string
+          maxLength: 64
+        city_name:
+          type: string
+          title: Місто
+          maxLength: 200
+        warehouse_ref:
+          type: string
+          maxLength: 64
+        warehouse_name:
+          type: string
+          title: Відділення
+          maxLength: 255
+        address:
+          type: string
+          title: Адреса
+          maxLength: 500
+        is_default:
+          type: boolean
+          title: Основна
+      required:
+      - delivery_method
+    AuthMethods:
+      type: object
+      properties:
+        telegram:
+          type: boolean
+        code_channels:
+          type: array
+          items:
+            type: string
+      required:
+      - code_channels
+      - telegram
+    CalcInputRequest:
+      type: object
+      properties:
+        room:
+          allOf:
+          - $ref: '#/components/schemas/RoomEnum'
+          default: other
+        surfaces:
+          type: array
+          items:
+            $ref: '#/components/schemas/SurfaceRequest'
+        include:
+          $ref: '#/components/schemas/IncludeRequest'
+      required:
+      - surfaces
+    CalcResult:
+      type: object
+      properties:
+        settings_version:
+          type: integer
+        surfaces:
+          type: array
+          items:
+            $ref: '#/components/schemas/SurfaceResult'
+        lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/LineResult'
+        total_kop:
+          type: integer
+        weight_kg:
+          type: string
+        warnings:
+          type: array
+          items:
+            $ref: '#/components/schemas/Warning'
+      required:
+      - lines
+      - settings_version
+      - surfaces
+      - total_kop
+      - warnings
+      - weight_kg
+    Cart:
+      type: object
+      description: 'Лише для схеми OpenAPI: відповідь будує cart_to_dict.'
+      properties:
+        token:
+          type: string
+        lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/CartLine'
+        subtotal_kop:
+          type: integer
+        subtotal_display:
+          type: string
+        weight_kg:
+          type: string
+        has_unavailable:
+          type: boolean
+      required:
+      - has_unavailable
+      - lines
+      - subtotal_display
+      - subtotal_kop
+      - token
+      - weight_kg
+    CartLine:
+      type: object
+      properties:
+        id:
+          type: integer
+        group_label:
+          type: string
+        product_id:
+          type: integer
+        sku:
+          type: string
+        name:
+          type: string
+        qty:
+          type: integer
+        unit:
+          type: string
+        base_qty:
+          type: string
+        price_kop:
+          type: integer
+        total_kop:
+          type: integer
+        total_display:
+          type: string
+        weight_kg:
+          type: string
+        available:
+          type: boolean
+      required:
+      - available
+      - base_qty
+      - group_label
+      - id
+      - name
+      - price_kop
+      - product_id
+      - qty
+      - sku
+      - total_display
+      - total_kop
+      - unit
+      - weight_kg
+    CheckoutRequest:
+      type: object
+      properties:
+        cart_token:
+          type: string
+          minLength: 1
+          maxLength: 64
+        name:
+          type: string
+          minLength: 1
+          maxLength: 150
+        phone:
+          type: string
+          minLength: 1
+          maxLength: 32
+        email:
+          oneOf:
+          - type: string
+            format: email
+            default: ''
+          - type: string
+            maxLength: 0
+        comment:
+          type: string
+          default: ''
+          maxLength: 2000
+        delivery_method:
+          $ref: '#/components/schemas/DeliveryMethodEnum'
+        delivery:
+          $ref: '#/components/schemas/DeliveryRequest'
+        payment_method:
+          $ref: '#/components/schemas/PaymentMethodEnum'
+        quote_id:
+          type: string
+          maxLength: 40
+        captcha:
+          type: string
+      required:
+      - cart_token
+      - delivery_method
+      - name
+      - payment_method
+      - phone
+    CheckoutResult:
+      type: object
+      properties:
+        number:
+          type: string
+        public_token:
+          type: string
+        total_kop:
+          type: integer
+        delivery_kop:
+          type: integer
+          nullable: true
+        payment_url:
+          type: string
+          nullable: true
+        payment_retry:
+          type: boolean
+      required:
+      - delivery_kop
+      - number
+      - payment_retry
+      - payment_url
+      - public_token
+      - total_kop
+    City:
+      type: object
+      properties:
+        ref:
+          type: string
+        name:
+          type: string
+      required:
+      - name
+      - ref
+    CodeRequestRequest:
+      type: object
+      properties:
+        phone:
+          type: string
+          minLength: 1
+          maxLength: 32
+        channel:
+          type: string
+          minLength: 1
+          maxLength: 20
+      required:
+      - channel
+      - phone
+    CodeVerifyRequest:
+      type: object
+      properties:
+        phone:
+          type: string
+          minLength: 1
+          maxLength: 32
+        code:
+          type: string
+          minLength: 1
+          pattern: ^\s*\d{6}\s*$
+      required:
+      - code
+      - phone
+    Customer:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        phone:
+          type: string
+          readOnly: true
+          title: Телефон
+        name:
+          type: string
+          title: Ім'я
+          maxLength: 150
+        email:
+          oneOf:
+          - type: string
+            format: email
+            maxLength: 254
+          - type: string
+            maxLength: 0
+        is_master:
+          type: boolean
+          readOnly: true
+          title: Майстер
+          description: Бачить і купує за цінами для майстрів
+        telegram_username:
+          type: string
+          readOnly: true
+          title: Telegram
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Створено
+      required:
+      - created_at
+      - id
+      - is_master
+      - phone
+      - telegram_username
+    DeliveryMethodEnum:
+      enum:
+      - pickup
+      - local
+      - nova_poshta
+      type: string
+      description: |-
+        * `pickup` - Самовивіз
+        * `local` - Доставка по місту
+        * `nova_poshta` - Нова пошта
+    DeliveryRequest:
+      type: object
+      properties:
+        city_ref:
+          type: string
+          maxLength: 64
+        city_name:
+          type: string
+          maxLength: 200
+        warehouse_ref:
+          type: string
+          maxLength: 64
+        warehouse_name:
+          type: string
+          maxLength: 255
+        address:
+          type: string
+          maxLength: 500
+    EstimateCreateRequest:
+      type: object
+      properties:
+        room:
+          allOf:
+          - $ref: '#/components/schemas/RoomEnum'
+          default: other
+        surfaces:
+          type: array
+          items:
+            $ref: '#/components/schemas/SurfaceRequest'
+        include:
+          $ref: '#/components/schemas/IncludeRequest'
+        source:
+          allOf:
+          - $ref: '#/components/schemas/SourceEnum'
+          default: calculator
+        title:
+          type: string
+          default: ''
+          maxLength: 120
+      required:
+      - surfaces
+    EstimateCreated:
+      type: object
+      properties:
+        code:
+          type: string
+        result:
+          $ref: '#/components/schemas/CalcResult'
+      required:
+      - code
+      - result
+    EstimateDetail:
+      type: object
+      properties:
+        code:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        input: {}
+        result:
+          $ref: '#/components/schemas/CalcResult'
+        current:
+          allOf:
+          - $ref: '#/components/schemas/CalcResult'
+          nullable: true
+        changed:
+          type: boolean
+      required:
+      - changed
+      - code
+      - created_at
+      - current
+      - input
+      - result
+    Image:
+      type: object
+      properties:
+        kind:
+          allOf:
+          - $ref: '#/components/schemas/ImageKindEnum'
+          title: Тип
+        alt:
+          type: string
+          title: Опис для пошуковиків
+          maxLength: 255
+        urls:
+          type: object
+          additionalProperties:
+            type: string
+          readOnly: true
+      required:
+      - urls
+    ImageKindEnum:
+      enum:
+      - product
+      - interior
+      type: string
+      description: |-
+        * `product` - Товар
+        * `interior` - В інтер'єрі
+    IncludeRequest:
+      type: object
+      properties:
+        glue:
+          type: boolean
+          default: true
+        grout:
+          type: boolean
+          default: true
+        primer:
+          type: boolean
+          default: true
+        waterproofing:
+          type: boolean
+          default: true
+        labor:
+          type: boolean
+          default: true
+    LayoutEnum:
+      enum:
+      - straight
+      - offset
+      - diagonal
+      - herringbone
+      type: string
+      description: |-
+        * `straight` - straight
+        * `offset` - offset
+        * `diagonal` - diagonal
+        * `herringbone` - herringbone
+    LeadCreated:
+      type: object
+      properties:
+        id:
+          type: integer
+        status:
+          type: string
+      required:
+      - id
+      - status
+    LeadRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 150
+        phone:
+          type: string
+          minLength: 1
+          maxLength: 32
+        comment:
+          type: string
+          default: ''
+          maxLength: 2000
+        estimate_code:
+          type: string
+          minLength: 1
+          maxLength: 8
+        captcha:
+          type: string
+      required:
+      - name
+      - phone
+    LineResult:
+      type: object
+      properties:
+        kind:
+          type: string
+        name:
+          type: string
+        product_id:
+          type: integer
+          nullable: true
+        quantity:
+          type: string
+        unit:
+          type: string
+        quantity_base:
+          type: string
+        base_unit:
+          type: string
+        total_kop:
+          type: integer
+        weight_kg:
+          type: string
+        surface_index:
+          type: integer
+          nullable: true
+      required:
+      - base_unit
+      - kind
+      - name
+      - product_id
+      - quantity
+      - quantity_base
+      - surface_index
+      - total_kop
+      - unit
+      - weight_kg
+    LoginResult:
+      type: object
+      properties:
+        token:
+          type: string
+        expires_at:
+          type: string
+          format: date-time
+        customer:
+          $ref: '#/components/schemas/Customer'
+      required:
+      - customer
+      - expires_at
+      - token
+    ManualTileRequest:
+      type: object
+      properties:
+        width_mm:
+          type: integer
+          maximum: 3200
+          minimum: 10
+        height_mm:
+          type: integer
+          maximum: 3200
+          minimum: 10
+        thickness_mm:
+          type: integer
+          maximum: 40
+          minimum: 3
+          default: 8
+        price_kop_per_m2:
+          type: integer
+          minimum: 0
+        m2_per_pack:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,4}(?:\.\d{0,3})?$
+        pcs_per_pack:
+          type: integer
+          minimum: 1
+        pack_weight_kg:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,4}(?:\.\d{0,3})?$
+      required:
+      - height_mm
+      - price_kop_per_m2
+      - width_mm
+    OpeningRequest:
+      type: object
+      properties:
+        width_m:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+        height_m:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+        count:
+          type: integer
+          maximum: 20
+          minimum: 1
+          default: 1
+      required:
+      - height_m
+      - width_m
+    OrderItem:
+      type: object
+      properties:
+        product_id:
+          type: integer
+          nullable: true
+          readOnly: true
+        sku:
+          type: string
+          title: Артикул
+          maxLength: 64
+        name:
+          type: string
+          title: Назва
+          maxLength: 255
+        unit:
+          type: string
+          title: Одиниця
+          maxLength: 10
+        qty:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          title: Кількість
+        qty_base:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,9}(?:\.\d{0,3})?$
+          title: Обсяг (м² або од.)
+        price_kop:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          title: Ціна, коп.
+        total_kop:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          title: Сума, коп.
+        group_label:
+          type: string
+          title: Група
+          maxLength: 100
+      required:
+      - name
+      - price_kop
+      - product_id
+      - qty
+      - qty_base
+      - sku
+      - total_kop
+      - unit
+    OrderStatusEnum:
+      enum:
+      - new
+      - confirmed
+      - packed
+      - shipped
+      - completed
+      - cancelled
+      type: string
+      description: |-
+        * `new` - Нове
+        * `confirmed` - Підтверджене
+        * `packed` - Зібране
+        * `shipped` - Відправлене
+        * `completed` - Виконане
+        * `cancelled` - Скасоване
+    PaginatedAccountEstimateList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountEstimate'
+    PaginatedProductCardList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductCard'
+    PaginatedPublicOrderList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicOrder'
+    PatchedAddressRequest:
+      type: object
+      properties:
+        label:
+          type: string
+          title: Назва
+          maxLength: 60
+        delivery_method:
+          allOf:
+          - $ref: '#/components/schemas/AddressDeliveryMethodEnum'
+          title: Спосіб
+        city_ref:
+          type: string
+          maxLength: 64
+        city_name:
+          type: string
+          title: Місто
+          maxLength: 200
+        warehouse_ref:
+          type: string
+          maxLength: 64
+        warehouse_name:
+          type: string
+          title: Відділення
+          maxLength: 255
+        address:
+          type: string
+          title: Адреса
+          maxLength: 500
+        is_default:
+          type: boolean
+          title: Основна
+    PatchedCustomerRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          title: Ім'я
+          maxLength: 150
+        email:
+          oneOf:
+          - type: string
+            format: email
+            maxLength: 254
+          - type: string
+            maxLength: 0
+    PatchedUpdateItemRequest:
+      type: object
+      properties:
+        qty:
+          type: integer
+          maximum: 10000
+          minimum: 1
+    PaymentLink:
+      type: object
+      properties:
+        payment_url:
+          type: string
+      required:
+      - payment_url
+    PaymentMethodEnum:
+      enum:
+      - online
+      - cod
+      - invoice
+      type: string
+      description: |-
+        * `online` - Онлайн карткою
+        * `cod` - При отриманні
+        * `invoice` - Рахунок для юросіб
+    PaymentStatusEnum:
+      enum:
+      - awaiting
+      - paid
+      - refunded
+      - on_delivery
+      type: string
+      description: |-
+        * `awaiting` - Очікує оплати
+        * `paid` - Оплачено
+        * `refunded` - Повернено
+        * `on_delivery` - Оплата при отриманні
+    PdfStatus:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/PdfStatusStatusEnum'
+        url:
+          type: string
+      required:
+      - status
+    PdfStatusStatusEnum:
+      enum:
+      - ready
+      - rendering
+      type: string
+      description: |-
+        * `ready` - ready
+        * `rendering` - rendering
+    PricesRequestRequest:
+      type: object
+      properties:
+        ids:
+          type: array
+          items:
+            type: integer
+          maxItems: 200
+      required:
+      - ids
+    PricesResponse:
+      type: object
+      properties:
+        is_master:
+          type: boolean
+        prices:
+          type: object
+          additionalProperties:
+            type: integer
+      required:
+      - is_master
+      - prices
+    ProductCard:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        slug:
+          type: string
+          maxLength: 220
+          pattern: ^[-a-zA-Z0-9_]+$
+        sku:
+          type: string
+          title: Артикул
+          maxLength: 64
+        name:
+          type: string
+          title: Назва
+          maxLength: 255
+        kind:
+          allOf:
+          - $ref: '#/components/schemas/ProductKindEnum'
+          title: Тип
+        unit:
+          allOf:
+          - $ref: '#/components/schemas/UnitEnum'
+          title: Одиниця ціни
+        price_kop:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          title: Ціна, коп. за одиницю
+        old_price_kop:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          nullable: true
+          title: Стара ціна, коп.
+        price_display:
+          type: string
+          readOnly: true
+        stock_status:
+          allOf:
+          - $ref: '#/components/schemas/StockStatusEnum'
+          title: Наявність
+        image:
+          type: string
+          nullable: true
+          readOnly: true
+        size:
+          type: string
+          nullable: true
+          readOnly: true
+        m2_per_pack:
+          type: string
+          nullable: true
+          readOnly: true
+        manufacturer:
+          type: string
+          nullable: true
+          readOnly: true
+      required:
+      - id
+      - image
+      - kind
+      - m2_per_pack
+      - manufacturer
+      - name
+      - price_display
+      - price_kop
+      - size
+      - sku
+      - slug
+      - unit
+    ProductDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        slug:
+          type: string
+          maxLength: 220
+          pattern: ^[-a-zA-Z0-9_]+$
+        sku:
+          type: string
+          title: Артикул
+          maxLength: 64
+        name:
+          type: string
+          title: Назва
+          maxLength: 255
+        kind:
+          allOf:
+          - $ref: '#/components/schemas/ProductKindEnum'
+          title: Тип
+        unit:
+          allOf:
+          - $ref: '#/components/schemas/UnitEnum'
+          title: Одиниця ціни
+        price_kop:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          title: Ціна, коп. за одиницю
+        old_price_kop:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          nullable: true
+          title: Стара ціна, коп.
+        price_display:
+          type: string
+          readOnly: true
+        stock_status:
+          allOf:
+          - $ref: '#/components/schemas/StockStatusEnum'
+          title: Наявність
+        image:
+          type: string
+          nullable: true
+          readOnly: true
+        size:
+          type: string
+          nullable: true
+          readOnly: true
+        m2_per_pack:
+          type: string
+          nullable: true
+          readOnly: true
+        manufacturer:
+          type: string
+          nullable: true
+          readOnly: true
+        description:
+          type: string
+          title: Опис
+        seo_title:
+          type: string
+          maxLength: 255
+        seo_description:
+          type: string
+          maxLength: 500
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+          readOnly: true
+        category:
+          type: object
+          additionalProperties:
+            type: string
+          readOnly: true
+        collection:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+          readOnly: true
+        tile_spec:
+          type: object
+          additionalProperties: {}
+          nullable: true
+          readOnly: true
+        material_spec:
+          type: object
+          additionalProperties: {}
+          nullable: true
+          readOnly: true
+        related:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              additionalProperties: {}
+          readOnly: true
+      required:
+      - category
+      - collection
+      - id
+      - image
+      - images
+      - kind
+      - m2_per_pack
+      - manufacturer
+      - material_spec
+      - name
+      - price_display
+      - price_kop
+      - related
+      - size
+      - sku
+      - slug
+      - tile_spec
+      - unit
+    ProductKindEnum:
+      enum:
+      - tile
+      - mosaic
+      - decor
+      - glue
+      - grout
+      - primer
+      - waterproofing
+      - accessory
+      type: string
+      description: |-
+        * `tile` - Плитка
+        * `mosaic` - Мозаїка
+        * `decor` - Декор
+        * `glue` - Клей
+        * `grout` - Затирка
+        * `primer` - Ґрунтовка
+        * `waterproofing` - Гідроізоляція
+        * `accessory` - Аксесуар
+    PublicOrder:
+      type: object
+      properties:
+        number:
+          type: string
+          readOnly: true
+          nullable: true
+          title: Номер
+        public_token:
+          type: string
+          readOnly: true
+        status:
+          allOf:
+          - $ref: '#/components/schemas/OrderStatusEnum'
+          readOnly: true
+          title: Статус
+        status_label:
+          type: string
+        payment_method:
+          allOf:
+          - $ref: '#/components/schemas/PaymentMethodEnum'
+          title: Оплата
+        payment_status:
+          allOf:
+          - $ref: '#/components/schemas/PaymentStatusEnum'
+          readOnly: true
+          title: Статус оплати
+        payment_status_label:
+          type: string
+        delivery_method:
+          allOf:
+          - $ref: '#/components/schemas/DeliveryMethodEnum'
+          title: Доставка
+        subtotal_kop:
+          type: integer
+          readOnly: true
+          title: Товари, коп.
+        delivery_kop:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          nullable: true
+          title: Доставка, коп.
+        total_kop:
+          type: integer
+          readOnly: true
+          title: Разом, коп.
+        total_display:
+          type: string
+          readOnly: true
+        weight_kg:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,7}(?:\.\d{0,3})?$
+          readOnly: true
+          title: Вага, кг
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItem'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Створено
+      required:
+      - created_at
+      - delivery_method
+      - items
+      - number
+      - payment_method
+      - payment_status
+      - payment_status_label
+      - public_token
+      - status
+      - status_label
+      - subtotal_kop
+      - total_display
+      - total_kop
+      - weight_kg
+    QuoteRequest:
+      type: object
+      properties:
+        method:
+          $ref: '#/components/schemas/DeliveryMethodEnum'
+        cart_token:
+          type: string
+          minLength: 1
+          maxLength: 64
+        city_ref:
+          type: string
+          minLength: 1
+          default: ''
+          maxLength: 64
+      required:
+      - cart_token
+      - method
+    RoomEnum:
+      enum:
+      - bathroom
+      - toilet
+      - kitchen
+      - hallway
+      - terrace
+      - living
+      - other
+      type: string
+      description: |-
+        * `bathroom` - bathroom
+        * `toilet` - toilet
+        * `kitchen` - kitchen
+        * `hallway` - hallway
+        * `terrace` - terrace
+        * `living` - living
+        * `other` - other
+    SourceEnum:
+      enum:
+      - calculator
+      - product_card
+      type: string
+      description: |-
+        * `calculator` - calculator
+        * `product_card` - product_card
+    StockStatusEnum:
+      enum:
+      - in_stock
+      - on_order
+      - out_of_stock
+      type: string
+      description: |-
+        * `in_stock` - В наявності
+        * `on_order` - Під замовлення
+        * `out_of_stock` - Немає
+    SurfaceKindEnum:
+      enum:
+      - floor
+      - walls
+      type: string
+      description: |-
+        * `floor` - floor
+        * `walls` - walls
+    SurfaceRequest:
+      type: object
+      properties:
+        kind:
+          $ref: '#/components/schemas/SurfaceKindEnum'
+        product_id:
+          type: integer
+        tile:
+          $ref: '#/components/schemas/ManualTileRequest'
+        layout:
+          allOf:
+          - $ref: '#/components/schemas/LayoutEnum'
+          default: straight
+        joint_mm:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,1})?$
+          default: '2.0'
+        length_m:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,3})?$
+        width_m:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,3})?$
+        height_m:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,3})?$
+        area_m2:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,5}(?:\.\d{0,2})?$
+        openings:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpeningRequest'
+      required:
+      - kind
+    SurfaceResult:
+      type: object
+      properties:
+        kind:
+          type: string
+        area_m2:
+          type: string
+        area_with_waste_m2:
+          type: string
+        packs:
+          type: integer
+      required:
+      - area_m2
+      - area_with_waste_m2
+      - kind
+      - packs
+    TelegramPollRequest:
+      type: object
+      properties:
+        login_id:
+          type: string
+          format: uuid
+        poll_secret:
+          type: string
+          minLength: 1
+          maxLength: 64
+      required:
+      - login_id
+      - poll_secret
+    TelegramPollResult:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/TelegramPollResultStatusEnum'
+        token:
+          type: string
+        expires_at:
+          type: string
+          format: date-time
+        customer:
+          $ref: '#/components/schemas/Customer'
+      required:
+      - status
+    TelegramPollResultStatusEnum:
+      enum:
+      - pending
+      - awaiting_contact
+      - confirmed
+      - expired
+      type: string
+      description: |-
+        * `pending` - pending
+        * `awaiting_contact` - awaiting_contact
+        * `confirmed` - confirmed
+        * `expired` - expired
+    TelegramStart:
+      type: object
+      properties:
+        login_id:
+          type: string
+          format: uuid
+        poll_secret:
+          type: string
+        bot_url:
+          type: string
+        expires_at:
+          type: string
+          format: date-time
+      required:
+      - bot_url
+      - expires_at
+      - login_id
+      - poll_secret
+    UnitEnum:
+      enum:
+      - m2
+      - pcs
+      - bag
+      - bucket
+      type: string
+      description: |-
+        * `m2` - м²
+        * `pcs` - шт
+        * `bag` - мішок
+        * `bucket` - відро
+    Warehouse:
+      type: object
+      properties:
+        ref:
+          type: string
+        name:
+          type: string
+        number:
+          type: string
+        type:
+          type: string
+      required:
+      - name
+      - number
+      - ref
+      - type
+    Warning:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        surface_index:
+          type: integer
+          nullable: true
+      required:
+      - code
+      - message
+      - surface_index
+  securitySchemes:
+    customerToken:
+      type: http
+      scheme: bearer
+      description: Токен сесії клієнта з /auth/telegram/poll або /auth/code/verify

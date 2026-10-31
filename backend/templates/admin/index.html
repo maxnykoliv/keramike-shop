@@ -1,0 +1,33 @@
+{% extends 'admin/base.html' %}
+{% load i18n %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block branding %}
+    {% include "unfold/helpers/site_branding.html" %}
+{% endblock %}
+
+{% block content %}
+    {% if shop_stats %}
+    <div class="flex flex-col gap-4 mb-8">
+        {% if needs_review %}
+        <div class="border border-red-300 rounded-default p-4 text-red-700">
+            Замовлень, що потребують перевірки оплати: <b>{{ needs_review }}</b>.
+            <a class="underline" href="{% url 'admin:orders_order_changelist' %}?needs_review__exact=1">Переглянути</a>
+        </div>
+        {% endif %}
+        <div class="grid gap-4 md:grid-cols-3">
+            {% for period in shop_stats %}
+            <div class="border border-base-200 dark:border-base-800 rounded-default p-4">
+                <div class="font-semibold mb-2">{{ period.title }}</div>
+                <div>Замовлень: {{ period.orders }}</div>
+                <div>Оплачено: {{ period.revenue }}</div>
+                <div>Заявок: {{ period.leads }}</div>
+                <div>Кошторисів: {{ period.estimates }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% include "unfold/helpers/dashboard_default.html" %}
+{% endblock %}

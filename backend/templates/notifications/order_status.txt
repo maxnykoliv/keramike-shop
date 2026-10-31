@@ -1,0 +1,3 @@
+Статус замовлення {{ order.number }}: {{ order.get_status_display }}.
+
+Деталі: {{ status_url }}

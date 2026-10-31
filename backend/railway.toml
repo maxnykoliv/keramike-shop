@@ -1,0 +1,12 @@
+# Конфігурація сервісу api. Сервіси worker і beat використовують той самий образ,
+# але в налаштуваннях Railway мають власну команду запуску (див. README).
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
+watchPatterns = ["backend/**"]
+
+[deploy]
+preDeployCommand = ["python manage.py migrate --noinput"]
+healthcheckPath = "/health"
+healthcheckTimeout = 60
+restartPolicyType = "ON_FAILURE"

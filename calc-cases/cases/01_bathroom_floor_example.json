@@ -1,0 +1,25 @@
+{
+  "name": "Підлога ванної 2,0×1,7 м, плитка 60×60, приклад із ТЗ",
+  "input": {
+    "room": "bathroom",
+    "surfaces": [
+      {
+        "kind": "floor", "length_m": "2.0", "width_m": "1.7", "layout": "straight", "joint_mm": "2",
+        "tile": {"width_mm": 600, "height_mm": 600, "thickness_mm": 8, "price_kop_per_m2": 65000,
+                 "m2_per_pack": "1.44", "pack_weight_kg": "32", "applications": ["floor", "wall"]}
+      }
+    ],
+    "include": {"glue": true, "grout": true, "primer": false, "waterproofing": false, "labor": false}
+  },
+  "expected": {
+    "surfaces": [{"area_m2": "3.40", "area_with_waste_m2": "3.74", "packs": 3}],
+    "lines": [
+      {"kind": "tile", "quantity": "3", "quantity_base": "4.32", "total_kop": 280800, "weight_kg": "96.000"},
+      {"kind": "glue", "quantity": "1", "quantity_base": "17.00", "total_kop": 45000, "weight_kg": "25.000"},
+      {"kind": "grout", "quantity": "1", "quantity_base": "0.27", "total_kop": 18000, "weight_kg": "2.000"}
+    ],
+    "total_kop": 343800,
+    "weight_kg": "123.000",
+    "warnings": ["waterproofing_recommended"]
+  }
+}

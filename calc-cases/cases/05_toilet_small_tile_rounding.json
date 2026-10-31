@@ -1,0 +1,25 @@
+{
+  "name": "Туалет 1,05×1,05 м, плитка 20×20 поштучно в упаковці, округлення площі",
+  "input": {
+    "room": "toilet",
+    "surfaces": [
+      {
+        "kind": "floor", "length_m": "1.05", "width_m": "1.05", "layout": "straight", "joint_mm": "2",
+        "tile": {"width_mm": 200, "height_mm": 200, "thickness_mm": 7, "price_kop_per_m2": 30000,
+                 "pcs_per_pack": 25, "pack_weight_kg": "18", "applications": ["floor"]}
+      }
+    ],
+    "include": {"glue": true, "grout": true, "primer": false, "waterproofing": false, "labor": false}
+  },
+  "expected": {
+    "surfaces": [{"area_m2": "1.10", "area_with_waste_m2": "1.21", "packs": 2}],
+    "lines": [
+      {"kind": "tile", "quantity": "2", "quantity_base": "2.00", "total_kop": 60000, "weight_kg": "36.000"},
+      {"kind": "glue", "quantity": "1", "quantity_base": "3.85", "total_kop": 45000, "weight_kg": "25.000"},
+      {"kind": "grout", "quantity": "1", "quantity_base": "0.23", "total_kop": 18000, "weight_kg": "2.000"}
+    ],
+    "total_kop": 123000,
+    "weight_kg": "63.000",
+    "warnings": ["waterproofing_recommended"]
+  }
+}

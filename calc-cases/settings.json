@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "waste_by_layout": {"straight": "0.10", "offset": "0.12", "diagonal": "0.15", "herringbone": "0.20"},
+  "glue_kg_per_m2": {"small": "3.5", "medium": "5", "large": "7"},
+  "grout_density": "1.5",
+  "primer_l_per_m2": "0.2",
+  "waterproofing_kg_per_m2": "1.5",
+  "labor_kop_per_m2": {
+    "floor": {"small": 45000, "medium": 50000, "large": 65000},
+    "walls": {"small": 50000, "medium": 55000, "large": 70000}
+  },
+  "materials": {
+    "glue": {"name": "Клей для плитки 25 кг", "pack_size": "25", "price_kop": 45000, "pack_weight_kg": "25", "product_id": 101},
+    "grout": {"name": "Затирка 2 кг", "pack_size": "2", "price_kop": 18000, "pack_weight_kg": "2", "product_id": 102},
+    "primer": {"name": "Ґрунтовка 10 л", "pack_size": "10", "price_kop": 52000, "pack_weight_kg": "10.5", "product_id": 103},
+    "waterproofing": {"name": "Гідроізоляція 15 кг", "pack_size": "15", "price_kop": 98000, "pack_weight_kg": "15", "product_id": 104}
+  }
+}

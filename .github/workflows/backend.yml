@@ -1,0 +1,62 @@
+name: backend
+
+on:
+  pull_request:
+    paths: ["backend/**", "calc-cases/**", ".github/workflows/backend.yml"]
+  push:
+    branches: [main]
+    paths: ["backend/**", "calc-cases/**", ".github/workflows/backend.yml"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: keramike
+          POSTGRES_PASSWORD: keramike
+          POSTGRES_DB: keramike
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U keramike" --health-interval 5s --health-retries 10
+    env:
+      DATABASE_URL: postgres://keramike:keramike@localhost:5432/keramike
+      SECRET_KEY: ci-secret-key
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Встановити залежності
+        run: |
+          python -c "import tomllib; d = tomllib.load(open('pyproject.toml', 'rb')); print('\n'.join(d['project']['dependencies'] + d['dependency-groups']['dev']))" > /tmp/requirements.txt
+          pip install -r /tmp/requirements.txt
+      - name: Ruff
+        run: ruff check .
+      - name: Mypy
+        run: mypy apps config conftest.py
+      - name: Межі застосунків
+        run: lint-imports
+      - name: Міграції актуальні
+        run: python manage.py makemigrations --check --dry-run
+        env:
+          DJANGO_SETTINGS_MODULE: config.settings.test
+      - name: Перевірка прод-налаштувань
+        run: python manage.py check --deploy --fail-level WARNING
+        env:
+          DJANGO_SETTINGS_MODULE: config.settings.prod
+          SECRET_KEY: ci-only-long-secret-key-for-deploy-check-0123456789-abcdefghijklmnop
+          ALLOWED_HOSTS: api.example.com
+      - name: Схема OpenAPI актуальна
+        run: |
+          python manage.py spectacular --file /tmp/openapi.yml
+          diff -u openapi.yml /tmp/openapi.yml
+        env:
+          DJANGO_SETTINGS_MODULE: config.settings.dev
+          REDIS_URL: ""
+      - name: Тести
+        run: pytest -q

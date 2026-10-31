@@ -1,0 +1,14 @@
+{
+  "name": "Прорізи більші за площу стін",
+  "input": {
+    "room": "hallway",
+    "surfaces": [
+      {
+        "kind": "walls", "length_m": "1", "width_m": "1", "height_m": "1",
+        "openings": [{"width_m": "3", "height_m": "2", "count": 1}],
+        "tile": {"width_mm": 300, "height_mm": 300, "price_kop_per_m2": 40000, "m2_per_pack": "1.08"}
+      }
+    ]
+  },
+  "expected_error": {"code": "openings_exceed_area", "field": "surfaces[0].openings"}
+}

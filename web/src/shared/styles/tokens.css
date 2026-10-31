@@ -1,0 +1,21 @@
+/* Дизайн-токени Premium Minimalism. Єдине місце, де дозволені HEX-кольори.
+   Контраст перевірено проти фону #F7F5F0 (WCAG AA), див. ТЗ фронтенду. */
+@theme {
+  --color-bg: #f7f5f0;            /* фон, теплий білий */
+  --color-text: #252522;          /* основний текст, графіт, 14,1:1 */
+  --color-surface: #e8e2d8;       /* другорядний фон */
+  --color-accent: #967b5b;        /* акцент: великі цифри, лінії, іконки (3,65:1 — лише великий текст) */
+  --color-accent-strong: #7a6247; /* дрібний акцентний текст і посилання, 5,26:1 */
+  --color-button: #292925;        /* головні кнопки, текст на них — bg */
+  --color-button-hover: #3a3a35;
+  --color-text-muted: #625d55;    /* підписи, 5,99:1 */
+  --color-line: #d9d1c4;          /* тонкі розділювачі, лише декор */
+  --color-line-strong: #857e70;   /* межі полів, 3,70:1 */
+  --color-error: #a3412f;
+  --color-success: #4f6b4a;
+
+  --radius-default: 2px;
+  --ease-out: cubic-bezier(0.2, 0, 0, 1);
+  --duration-fast: 200ms;
+  --duration-slow: 300ms;
+}

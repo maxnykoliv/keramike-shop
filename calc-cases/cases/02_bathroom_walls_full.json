@@ -1,0 +1,30 @@
+{
+  "name": "Стіни ванної з дверима, зі зміщенням, усі матеріали й робота, бракує залишку",
+  "input": {
+    "room": "bathroom",
+    "surfaces": [
+      {
+        "kind": "walls", "length_m": "2.0", "width_m": "1.7", "height_m": "2.5",
+        "openings": [{"width_m": "0.7", "height_m": "2.0", "count": 1}],
+        "layout": "offset", "joint_mm": "2",
+        "tile": {"width_mm": 300, "height_mm": 600, "thickness_mm": 9, "price_kop_per_m2": 52000,
+                 "pcs_per_pack": 8, "pack_weight_kg": "24", "stock_m2": "10", "applications": ["wall"]}
+      }
+    ],
+    "include": {"glue": true, "grout": true, "primer": true, "waterproofing": true, "labor": true}
+  },
+  "expected": {
+    "surfaces": [{"area_m2": "17.10", "area_with_waste_m2": "19.15", "packs": 14}],
+    "lines": [
+      {"kind": "tile", "quantity": "14", "quantity_base": "20.16", "total_kop": 1048320, "weight_kg": "336.000"},
+      {"kind": "glue", "quantity": "4", "quantity_base": "85.50", "total_kop": 180000, "weight_kg": "100.000"},
+      {"kind": "grout", "quantity": "2", "quantity_base": "2.31", "total_kop": 36000, "weight_kg": "4.000"},
+      {"kind": "primer", "quantity": "1", "quantity_base": "3.42", "total_kop": 52000, "weight_kg": "10.500"},
+      {"kind": "waterproofing", "quantity": "2", "quantity_base": "25.65", "total_kop": 196000, "weight_kg": "30.000"},
+      {"kind": "labor", "quantity": "17.10", "quantity_base": "17.10", "total_kop": 940500, "weight_kg": "0.000"}
+    ],
+    "total_kop": 2452820,
+    "weight_kg": "480.500",
+    "warnings": ["insufficient_stock"]
+  }
+}

@@ -1,0 +1,8 @@
+Дякуємо! Замовлення {{ order.number }} прийнято.
+
+{% for item in items %}- {{ item.name }} × {{ item.qty }}
+{% endfor %}
+Разом: {{ total }}{% if order.delivery_kop is None %} (вартість доставки уточнить менеджер){% endif %}
+
+Менеджер зв'яжеться з вами, щоб підтвердити наявність.
+Статус замовлення: {{ status_url }}

@@ -1,0 +1,71 @@
+@import "tailwindcss";
+@import "./tokens.css";
+
+@layer base {
+  html {
+    background: var(--color-bg);
+    color: var(--color-text);
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    font-family: var(--font-sans), system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100dvh;
+  }
+  @media (min-width: 768px) {
+    body { font-size: 17px; }
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-button);
+    outline-offset: 2px;
+  }
+  ::selection { background: var(--color-surface); }
+  h1, h2, h3, h4 { text-wrap: balance; }
+  input, select, textarea, button { font: inherit; color: inherit; }
+}
+
+@layer components {
+  .container-page { width: 100%; max-width: 1280px; margin-inline: auto; padding-inline: 16px; }
+  @media (min-width: 768px) { .container-page { padding-inline: 32px; } }
+
+  .t-display { font-family: var(--font-serif), Georgia, serif; font-weight: 500; font-size: 44px; line-height: 1.05; letter-spacing: -0.01em; }
+  .t-h1 { font-family: var(--font-serif), Georgia, serif; font-weight: 500; font-size: 36px; line-height: 1.1; }
+  .t-h2 { font-family: var(--font-serif), Georgia, serif; font-weight: 500; font-size: 28px; line-height: 1.15; }
+  .t-h3 { font-weight: 600; font-size: 18px; line-height: 1.3; }
+  .t-small { font-size: 14px; line-height: 1.5; }
+  .t-label { font-weight: 500; font-size: 12px; line-height: 1.4; letter-spacing: 0.08em; text-transform: uppercase; }
+  .t-price { font-weight: 600; font-size: 20px; line-height: 1.2; font-variant-numeric: tabular-nums; }
+  .tabular { font-variant-numeric: tabular-nums; }
+  @media (min-width: 768px) {
+    .t-display { font-size: 80px; }
+    .t-h1 { font-size: 56px; }
+    .t-h2 { font-size: 40px; }
+    .t-h3 { font-size: 20px; }
+    .t-label { font-size: 13px; }
+    .t-price { font-size: 24px; }
+  }
+
+  .link { color: var(--color-accent-strong); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  .link:hover { text-decoration-thickness: 2px; }
+
+  .fade-up { animation: fade-up var(--duration-slow) var(--ease-out) both; }
+  .img-zoom { transition: transform 600ms var(--ease-out); }
+  .group:hover .img-zoom { transform: scale(1.03); }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes pulse-soft { 50% { opacity: 0.55; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-property: color, background-color, border-color !important;
+    scroll-behavior: auto !important;
+  }
+}

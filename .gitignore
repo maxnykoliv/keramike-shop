@@ -1,0 +1,32 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+backend/staticfiles/
+backend/media/
+backend/.env
+celerybeat-schedule*
+
+# Node
+node_modules/
+web/.next/
+
+# Редактори
+.idea/
+.vscode/
+.DS_Store
+
+# Секрети й локальні налаштування
+.env
+.env.*
+!.env.example
+.vercel/
+
+# Артефакти збірки й тестів
+*.tsbuildinfo
+web/test-results/
+web/playwright-report/
+web/blob-report/

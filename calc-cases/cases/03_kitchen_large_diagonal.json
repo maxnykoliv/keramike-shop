@@ -1,0 +1,25 @@
+{
+  "name": "Кухня 12,5 м² готовою площею, 120×60 по діагоналі, плитка лише для стін",
+  "input": {
+    "room": "kitchen",
+    "surfaces": [
+      {
+        "kind": "floor", "area_m2": "12.5", "layout": "diagonal", "joint_mm": "3",
+        "tile": {"width_mm": 1200, "height_mm": 600, "thickness_mm": 10, "price_kop_per_m2": 98000,
+                 "m2_per_pack": "1.44", "pack_weight_kg": "34", "applications": ["wall"]}
+      }
+    ],
+    "include": {"glue": true, "grout": false, "primer": false, "waterproofing": false, "labor": true}
+  },
+  "expected": {
+    "surfaces": [{"area_m2": "12.50", "area_with_waste_m2": "14.38", "packs": 10}],
+    "lines": [
+      {"kind": "tile", "quantity": "10", "quantity_base": "14.40", "total_kop": 1411200, "weight_kg": "340.000"},
+      {"kind": "glue", "quantity": "4", "quantity_base": "87.50", "total_kop": 180000, "weight_kg": "100.000"},
+      {"kind": "labor", "quantity": "12.50", "quantity_base": "12.50", "total_kop": 812500, "weight_kg": "0.000"}
+    ],
+    "total_kop": 2403700,
+    "weight_kg": "440.000",
+    "warnings": ["tile_not_for_floor"]
+  }
+}

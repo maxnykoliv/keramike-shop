@@ -1,0 +1,93 @@
+[project]
+name = "keramike-backend"
+version = "0.1.0"
+description = "Бекенд магазину кераміки з калькулятором ремонту"
+requires-python = ">=3.12"
+dependencies = [
+    "Django>=5.2,<6.0",
+    "djangorestframework>=3.16",
+    "drf-spectacular>=0.28",
+    "django-environ>=0.12",
+    "django-filter>=25.1",
+    "django-cors-headers>=4.7",
+    "django-storages[s3]>=1.14",
+    "django-import-export>=4.3",
+    "django-simple-history>=3.8",
+    "django-unfold>=0.60",
+    "django-axes>=8.0",
+    "argon2-cffi>=23.1",
+    "celery[redis]>=5.5",
+    "redis>=5.2",
+    "psycopg[binary]>=3.2",
+    "requests>=2.32",
+    "Pillow>=11.0",
+    "structlog>=25.1",
+    "sentry-sdk>=2.20",
+    "whitenoise>=6.9",
+    "gunicorn>=23.0",
+]
+
+[project.optional-dependencies]
+pdf = ["weasyprint>=65"]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "pytest-django>=4.10",
+    "factory-boy>=3.3",
+    "responses>=0.25",
+    "ruff>=0.9",
+    "mypy>=1.15",
+    "django-stubs[compatible-mypy]>=5.1",
+    "djangorestframework-stubs[compatible-mypy]>=3.15",
+    "import-linter>=2.1",
+]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings.test"
+python_files = ["test_*.py"]
+addopts = "-ra --strict-markers"
+filterwarnings = ["ignore::DeprecationWarning:celery.*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = ["*/migrations/*"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "DJ", "SIM", "RUF"]
+ignore = ["RUF001", "RUF002", "RUF003", "RUF012"]
+
+[tool.mypy]
+python_version = "3.12"
+plugins = ["mypy_django_plugin.main", "mypy_drf_plugin.main"]
+ignore_missing_imports = true
+check_untyped_defs = true
+exclude = ["migrations/"]
+
+[tool.django-stubs]
+django_settings_module = "config.settings.test"
+
+# Межі застосунків: імпорт лише вниз по шарах, рушій калькулятора без Django.
+[tool.importlinter]
+root_packages = ["apps"]
+include_external_packages = true
+
+[[tool.importlinter.contracts]]
+name = "Шари застосунків: залежності лише вниз"
+type = "layers"
+layers = [
+    "apps.backoffice | apps.notifications | apps.checkout",
+    "apps.payments | apps.delivery | apps.leads",
+    "apps.cart | apps.orders",
+    "apps.calc",
+    "apps.catalog | apps.accounts",
+    "apps.customers",
+    "apps.core",
+]
+
+[[tool.importlinter.contracts]]
+name = "Рушій калькулятора не залежить від Django"
+type = "forbidden"
+source_modules = ["apps.calc.engine"]
+forbidden_modules = ["django", "rest_framework", "apps.core", "apps.catalog", "apps.customers"]
