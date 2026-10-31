@@ -15,7 +15,7 @@ def new_public_token() -> str:
 
 
 class Order(TimeStampedModel):
-    # Номер присвоюється після вставки (KER-<pk>), тому до того NULL, а не порожній рядок.
+    # The number is assigned after insert (KER-<pk>), so it is NULL until then, not an empty string.
     number = models.CharField(  # noqa: DJ001
         "номер", max_length=20, unique=True, null=True, editable=False
     )

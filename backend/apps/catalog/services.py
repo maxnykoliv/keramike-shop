@@ -1,4 +1,4 @@
-"""Зміни в каталозі: статуси, резерв і списання залишків, скидання кешу."""
+"""Catalog changes: statuses, stock reservation and write-off, cache invalidation."""
 
 from decimal import Decimal
 
@@ -11,7 +11,7 @@ from apps.catalog.selectors import CACHE_VERSION_KEY, catalog_cache_version
 from apps.core.exceptions import NotFound, OutOfStock
 
 REVALIDATE_LOCK_KEY = "catalog:revalidate"
-REVALIDATE_DELAY = 10  # секунд
+REVALIDATE_DELAY = 10  # seconds
 
 
 def invalidate_cache() -> None:
@@ -20,7 +20,7 @@ def invalidate_cache() -> None:
         cache.incr(CACHE_VERSION_KEY)
     except ValueError:
         cache.set(CACHE_VERSION_KEY, 2, timeout=None)
-    # Імпорт зберігає товари по одному: сайт просимо оновитися раз після серії змін.
+    # Imports save products one by one, so ask the site to refresh once per batch of changes.
     if settings.REVALIDATE_SECRET and cache.add(REVALIDATE_LOCK_KEY, 1, REVALIDATE_DELAY):
         from apps.catalog.tasks import revalidate_site
 
@@ -42,7 +42,7 @@ def _lock(product_id: int) -> Product:
 
 @transaction.atomic
 def reserve(product_id: int, units: Decimal) -> Decimal:
-    """Резервує залишок. Повертає зарезервовану кількість: 0 для товару під замовлення."""
+    """Reserves stock. Returns the reserved quantity: 0 for made-to-order products."""
     product = _lock(product_id)
     if product.stock_status == Product.StockStatus.ON_ORDER:
         return Decimal("0")
@@ -67,7 +67,7 @@ def release(product_id: int, units: Decimal) -> None:
 
 @transaction.atomic
 def write_off(product_id: int, reserved: Decimal) -> None:
-    """Списує зарезервований товар після відправлення."""
+    """Writes off reserved stock after shipping."""
     if reserved <= 0:
         return
     product = _lock(product_id)

@@ -10,7 +10,7 @@ STORAGES["staticfiles"] = {  # noqa: F405
     "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"
 }
 
-# Без Redis (наприклад, без Docker): кеш у пам'яті, задачі Celery виконуються одразу.
+# Without Redis (e.g. without Docker): in-memory cache, Celery tasks run synchronously.
 if not env("REDIS_URL", default=""):
     CACHES = {"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
     CELERY_TASK_ALWAYS_EAGER = True

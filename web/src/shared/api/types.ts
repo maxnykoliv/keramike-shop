@@ -26,7 +26,7 @@ export type AuthMethods = S["AuthMethods"];
 export type TelegramPollResult = S["TelegramPollResult"];
 export type PricesResponse = S["PricesResponse"];
 
-/** tile_spec у ProductDetail описаний у схемі як довільний об'єкт — уточнюємо тут. */
+/** The schema types tile_spec in ProductDetail as an arbitrary object, so it is narrowed here. */
 export type TileSpec = {
   width_mm: number;
   height_mm: number;

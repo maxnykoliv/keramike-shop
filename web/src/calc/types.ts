@@ -1,5 +1,5 @@
-// Формат вводу, налаштувань і результату — той самий, що в API та calc-cases.
-// Десяткові числа — рядки, гроші — цілі копійки.
+// Input, settings and result format, the same as in the API and calc-cases.
+// Decimals are strings, money is integer kopiykas.
 
 export type Room = "bathroom" | "toilet" | "kitchen" | "hallway" | "terrace" | "living" | "other";
 export type SurfaceKind = "floor" | "walls";

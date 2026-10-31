@@ -1,4 +1,4 @@
-"""Інфраструктурні сигнали: скидання кешу каталогу і обробка фото. Доменних дій тут немає."""
+"""Infrastructure signals: catalog cache invalidation and photo processing. No domain logic here."""
 
 from django.db import transaction
 from django.db.models.signals import post_delete, post_save

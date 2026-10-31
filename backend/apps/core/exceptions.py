@@ -1,4 +1,4 @@
-"""Доменні винятки і єдиний формат помилок API: {code, message, field}."""
+"""Domain exceptions and the single API error format: {code, message, field}."""
 
 from typing import Any
 

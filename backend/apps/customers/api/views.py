@@ -70,7 +70,7 @@ class TelegramPollView(APIView):
 
 
 class TelegramWebhookView(APIView):
-    """Оновлення від Telegram. Перевіряємо секрет із заголовка, завжди відповідаємо 200."""
+    """Updates from Telegram. Checks the secret header and always responds with 200."""
 
     @extend_schema(request=OpenApiTypes.OBJECT, responses=OpenApiTypes.OBJECT,
                    description="Викликає Telegram, не фронтенд")

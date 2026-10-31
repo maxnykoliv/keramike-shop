@@ -6,7 +6,7 @@ import type { CategoryNode, Facets, PaginatedProducts, ProductCard, ProductDetai
 
 export const PAGE_SIZE = 24;
 
-/** Параметри фільтрів, які приймає бекенд. Решту з адреси сторінки відкидаємо. */
+/** Filter params the backend accepts. Everything else in the page URL is dropped. */
 export const FILTER_KEYS = ["kind", "application", "room", "size", "color", "surface", "material",
   "manufacturer", "collection", "price_min", "price_max", "in_stock", "ordering"] as const;
 
@@ -29,7 +29,7 @@ export async function getProducts(query: URLSearchParams, page = 1): Promise<Pag
   return publicGet<PaginatedProducts>(`catalog/products?${q}`);
 }
 
-/** Сторінки 1..page: після перезавантаження «Показати ще» відновлює вже показане. */
+/** Pages 1..page: after a reload, "Show more" restores what was already shown. */
 export async function getProductPages(query: URLSearchParams, page: number): Promise<PaginatedProducts> {
   const pages = Math.max(1, Math.min(page, 5));
   const results = await Promise.all(Array.from({ length: pages }, (_, i) => getProducts(query, i + 1).catch((e) => {

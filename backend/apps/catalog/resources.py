@@ -1,4 +1,4 @@
-"""Імпорт і експорт товарів через Excel. Ключ рядка — артикул."""
+"""Product import and export via spreadsheet files. Rows are keyed by SKU."""
 
 from decimal import Decimal, InvalidOperation
 

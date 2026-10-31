@@ -1,6 +1,6 @@
-"""Демо-дані для локальної розробки: ролі, власник, каталог, матеріали, налаштування калькулятора.
+"""Demo data for local development: roles, owner, catalog, materials, calculator settings.
 
-Безпечно запускати повторно. Не для production.
+Safe to run repeatedly. Not for production.
 """
 
 import json
@@ -34,19 +34,19 @@ TILES = [
 
 
 class Command(BaseCommand):
-    help = "Заповнює базу демо-даними"
+    help = "Fills the database with demo data"
 
     def add_arguments(self, parser):
         parser.add_argument("--owner-email", default="owner@example.com")
         parser.add_argument("--owner-password", default="")
         parser.add_argument("--extra-products", type=int, default=0,
-                            help="Додаткові однотипні плитки — перевірити пагінацію каталогу")
+                            help="Extra identical tiles, to test catalog pagination")
 
     @transaction.atomic
     def handle(self, *args, owner_email: str, owner_password: str, extra_products: int,
                **options) -> None:
         if not settings.DEBUG:
-            raise CommandError("seed_demo працює лише з DEBUG=True")
+            raise CommandError("seed_demo only runs with DEBUG=True")
         call_command("setup_roles", verbosity=0)
 
         User = get_user_model()
@@ -54,7 +54,7 @@ class Command(BaseCommand):
                                                     defaults={"is_staff": True})
         if created:
             if not owner_password:
-                raise CommandError("Вкажіть --owner-password для нового власника")
+                raise CommandError("Pass --owner-password for the new owner")
             owner.set_password(owner_password)
             owner.save()
         owner.groups.add(Group.objects.get(name=OWNER_GROUP))
@@ -134,5 +134,5 @@ class Command(BaseCommand):
         Customer.objects.get_or_create(phone="+380670000001",
                                        defaults={"name": "Демо-майстер", "is_master": True})
         self.stdout.write(self.style.SUCCESS(
-            f"Демо-дані готові. Власник: {owner_email}. Товарів: {Product.objects.count()}"
+            f"Demo data ready. Owner: {owner_email}. Products: {Product.objects.count()}"
         ))

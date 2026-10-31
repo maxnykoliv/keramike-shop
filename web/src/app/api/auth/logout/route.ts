@@ -4,7 +4,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { SESSION_COOKIE } from "@/shared/api/cookies";
 import { callApi, forwardHeaders, isSameOrigin, jsonError } from "@/shared/api/proxy";
 
-/** Вихід: {all: true} завершує сесії на всіх пристроях. */
+/** Logout: {all: true} ends the sessions on all devices. */
 export async function POST(req: NextRequest) {
   if (!isSameOrigin(req)) return jsonError(403, "forbidden_origin", "Запит з іншого сайту відхилено");
   const token = (await cookies()).get(SESSION_COOKIE)?.value ?? null;

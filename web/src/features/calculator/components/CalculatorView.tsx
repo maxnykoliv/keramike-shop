@@ -48,7 +48,7 @@ export function CalculatorView({ productSlug, estimateCode }: { productSlug?: st
   const started = useRef(false);
   const config = useCalcConfig();
 
-  // Початковий стан: збережений кошторис → плитка з картки → чернетка → приклад.
+  // Initial state: saved estimate → tile from the product card → draft → example.
   useEffect(() => {
     let cancelled = false;
     (async () => {
@@ -76,7 +76,7 @@ export function CalculatorView({ productSlug, estimateCode }: { productSlug?: st
       }
       const draft = readJson<CalcForm>(DRAFT_KEY);
       if (draft) {
-        // Ціни й наявність у чернетці могли застаріти — беремо свіжі з каталогу.
+        // Prices and stock in the draft may be stale, so fetch fresh ones from the catalog.
         const ids = draft.surfaces.flatMap((s) => (s.tile?.source === "catalog" ? [s.tile.productId] : []));
         const fresh = await loadTiles(ids).catch(() => null);
         if (fresh) {
@@ -90,7 +90,7 @@ export function CalculatorView({ productSlug, estimateCode }: { productSlug?: st
     return () => { cancelled = true; };
   }, [estimateCode, productSlug]);
 
-  // Чернетка в браузері: випадково закрита вкладка не губить цифри.
+  // Draft in the browser: an accidentally closed tab does not lose the numbers.
   useEffect(() => {
     if (!form) return;
     const timer = setTimeout(() => writeJson(DRAFT_KEY, form), 400);
@@ -176,7 +176,7 @@ export function CalculatorView({ productSlug, estimateCode }: { productSlug?: st
         <ResultActions form={form} localTotal={total} disabled={calculation.state !== "ready"} />
       </aside>
 
-      {/* Нижня панель на телефоні: сума завжди видно. */}
+      {/* Bottom bar on phones: the total is always visible. */}
       <div className="fixed inset-x-0 bottom-0 z-20 flex items-center justify-between gap-4 border-t border-line bg-bg px-4 py-3 md:hidden"
         data-testid="mobile-total">
         <div>

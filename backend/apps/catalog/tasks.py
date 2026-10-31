@@ -17,7 +17,7 @@ SIZES = {"sm": 320, "md": 800, "lg": 1600}
 
 @shared_task(max_retries=3, default_retry_delay=60)
 def process_image(image_id: int) -> dict[str, str]:
-    """Робить WebP у трьох розмірах. Повторний запуск перезаписує ті самі файли."""
+    """Builds WebP in three sizes. A rerun overwrites the same files."""
     image = ProductImage.objects.filter(pk=image_id).first()
     if image is None or not image.image:
         return {}
@@ -48,7 +48,7 @@ def process_image(image_id: int) -> dict[str, str]:
 
 @shared_task
 def revalidate_site(tag: str = "catalog") -> bool:
-    """Скидає кеш сторінок каталогу на сайті, щоб нові ціни з'явилися одразу."""
+    """Clears the site's catalog page cache so new prices show up immediately."""
     try:
         response = requests.post(f"{settings.SITE_URL}/api/revalidate", json={"tag": tag},
                                  headers={"X-Revalidate-Secret": settings.REVALIDATE_SECRET},

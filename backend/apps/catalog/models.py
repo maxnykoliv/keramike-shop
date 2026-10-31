@@ -100,7 +100,7 @@ class Product(TimeStampedModel):
         "ціна для майстрів, коп.", null=True, blank=True,
         help_text="Порожньо — майстер бачить звичайну ціну",
     )
-    # Для плитки залишок у м², для решти в одиницях продажу.
+    # Tile stock is in m², everything else in sales units.
     stock_qty = models.DecimalField("залишок", max_digits=12, decimal_places=3,
                                     default=Decimal("0"))
     reserved_qty = models.DecimalField("зарезервовано", max_digits=12, decimal_places=3,
@@ -241,7 +241,7 @@ class ProductImage(TimeStampedModel):
     kind = models.CharField("тип", max_length=10, choices=Kind.choices, default=Kind.PRODUCT)
     alt = models.CharField("опис для пошуковиків", max_length=255, blank=True)
     sort = models.PositiveIntegerField("порядок", default=0)
-    # Зменшені копії WebP: {"sm": "...", "md": "...", "lg": "..."}
+    # Downscaled WebP copies: {"sm": "...", "md": "...", "lg": "..."}
     variants = models.JSONField(default=dict, blank=True, editable=False)
 
     class Meta:

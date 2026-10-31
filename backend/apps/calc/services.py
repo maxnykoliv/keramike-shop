@@ -1,4 +1,4 @@
-"""Розрахунок, збереження кошторисів і публікація налаштувань."""
+"""Calculation, saving estimates and publishing settings."""
 
 import secrets
 from dataclasses import dataclass
@@ -16,7 +16,7 @@ from apps.catalog.selectors import effective_price, products_by_ids
 from apps.core.exceptions import DomainError, InvalidTransition
 from apps.customers.models import Customer
 
-CODE_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"  # без 0/O та 1/I
+CODE_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"  # no 0/O or 1/I
 
 SAMPLE_INPUT: dict[str, Any] = {
     "room": "bathroom",
@@ -70,7 +70,7 @@ def _tile_from_product(product: Product, *, master: bool = False) -> dict[str, A
 
 
 def resolve_input(payload: dict[str, Any], *, master: bool = False) -> dict[str, Any]:
-    """Підставляє характеристики й поточні ціни плитки з каталогу замість product_id."""
+    """Replaces product_id with the tile's specs and current price from the catalog."""
     payload = jsonable(payload)
     ids = [s["product_id"] for s in payload["surfaces"] if s.get("product_id")]
     products = products_by_ids(ids)
@@ -126,7 +126,7 @@ def save_estimate(payload: dict[str, Any], source: str = Estimate.Source.CALCULA
 
 
 def recalculate(estimate: Estimate) -> dict[str, Any] | None:
-    """Перераховує кошторис з поточними цінами. None, якщо товари вже недоступні."""
+    """Recalculates an estimate at current prices. None if the products are no longer available."""
     try:
         master = bool(estimate.customer and estimate.customer.is_master)
         return calculate(estimate.input, master=master).result_dict
@@ -158,7 +158,7 @@ def clone_as_draft(source: CalcSettings) -> CalcSettings:
 
 
 def preview(settings_model: CalcSettings) -> dict[str, Any]:
-    """Результат тестового прикладу з цими налаштуваннями, щоб побачити зміни до публікації."""
+    """Result of a sample calculation with these settings, to preview changes before publishing."""
     try:
         result = engine.calculate(engine.input_from_dict(SAMPLE_INPUT),
                                   selectors.engine_settings(settings_model))

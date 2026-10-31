@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { ApiError } from "@/shared/api/errors";
 import { accountGet } from "@/shared/api/server";
 
-/** Дані кабінету. Сесія скінчилася — на вхід із поверненням на ту саму сторінку. */
+/** Account data. If the session expired, go to login and come back to the same page. */
 export async function accountData<T>(path: string, back: string): Promise<T> {
   try {
     return await accountGet<T>(path);

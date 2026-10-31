@@ -1,7 +1,7 @@
-"""Перетворення вводу, налаштувань і результату з/у JSON-сумісні словники.
+"""Conversion of input, settings and results to and from JSON-compatible dicts.
 
-Формат однаковий для API, збережених кошторисів і еталонів calc-cases.
-Десяткові числа передаються рядками, гроші — цілими копійками.
+The same format is used by the API, saved estimates and the calc-cases golden files.
+Decimals travel as strings and money as integer kopiykas.
 """
 
 from decimal import Decimal

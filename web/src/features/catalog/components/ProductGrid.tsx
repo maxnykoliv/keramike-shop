@@ -12,8 +12,8 @@ import { usePersonalPrices } from "../hooks/usePersonalPrices";
 import { ProductCard } from "./ProductCard";
 
 /**
- * Сітка товарів із «Показати ще». Номер сторінки пишемо в адресу без перезавантаження,
- * тож після оновлення сторінки показане не губиться.
+ * Product grid with "Show more". The page number goes into the URL without a reload,
+ * so nothing shown is lost when the page is refreshed.
  */
 export function ProductGrid({
   initial, query, page = 1, pageSize = 24,

@@ -1,4 +1,4 @@
-"""Гроші: у БД цілі копійки, у розрахунках Decimal, float заборонений."""
+"""Money: integer kopiykas in the DB, Decimal in calculations, never float."""
 
 from decimal import ROUND_HALF_UP, Decimal
 
@@ -7,7 +7,7 @@ HUNDRED = Decimal("100")
 
 
 def round_kop(value: Decimal) -> int:
-    """Округлює суму в копійках до цілого за правилом ROUND_HALF_UP."""
+    """Rounds an amount in kopiykas to an integer with ROUND_HALF_UP."""
     return int(value.quantize(ONE, rounding=ROUND_HALF_UP))
 
 
@@ -20,7 +20,7 @@ def uah_to_kop(uah: Decimal | str) -> int:
 
 
 def format_uah(kop: int) -> str:
-    """2 808,00 грн"""
+    """Formats 280800 as "2 808,00 грн"."""
     value = kop_to_uah(kop)
     whole, frac = f"{value:.2f}".split(".")
     sign = "-" if whole.startswith("-") else ""

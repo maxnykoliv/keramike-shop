@@ -7,7 +7,7 @@ import type { ProductImage } from "@/shared/api/types";
 import { mediaUrl } from "@/shared/lib/media";
 import { Dialog, ProductVisual } from "@/shared/ui";
 
-/** Галерея: текстура, інтер'єр, збільшення на весь екран. Без фото — зразок плитки. */
+/** Gallery: texture, interior, full-screen zoom. Without photos, a tile swatch. */
 export function ProductGallery({ images, name, size, color }: { images: ProductImage[]; name: string; size?: string | null; color?: string }) {
   const [active, setActive] = useState(0);
   const [zoom, setZoom] = useState(false);

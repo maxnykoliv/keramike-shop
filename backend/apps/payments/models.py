@@ -21,7 +21,7 @@ class Payment(TimeStampedModel):
     order = models.ForeignKey("orders.Order", on_delete=models.PROTECT, related_name="payments",
                               verbose_name="замовлення")
     provider = models.CharField("провайдер", max_length=20)
-    # Наш ідентифікатор, який передаємо провайдеру як order_id.
+    # Our identifier, sent to the provider as order_id.
     reference = models.CharField(max_length=40, unique=True, default=new_reference,
                                  editable=False)
     provider_payment_id = models.CharField(max_length=100, blank=True)

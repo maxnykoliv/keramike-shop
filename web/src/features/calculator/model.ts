@@ -1,4 +1,4 @@
-/** Модель форми калькулятора і перетворення у ввід рушія та в запит до сервера. */
+/** Calculator form model and conversion to engine input and to the server request. */
 import type { CalcInput, Layout, Room, SurfaceKind, TileInput } from "@/calc";
 import type { ProductDetail, TileSpec } from "@/shared/api/types";
 import { tileSpecOf } from "@/shared/api/types";
@@ -103,7 +103,7 @@ export function catalogTile(product: ProductDetail): CatalogTile | null {
 
 export type BuildResult = { input: CalcInput } | { error: { field: string; message: string } };
 
-/** Ввід для рушія в браузері. priceOf підставляє ціну майстра. */
+/** Input for the in-browser engine. priceOf supplies the master price. */
 export function toEngineInput(form: CalcForm, priceOf: (id: number, fallback: number) => number = (_, f) => f): BuildResult {
   const surfaces = [];
   for (const [index, surface] of form.surfaces.entries()) {
@@ -163,7 +163,7 @@ function tileInput(tile: SurfaceForm["tile"], priceOf: (id: number, fallback: nu
   };
 }
 
-/** Тіло запиту до сервера: плитка з каталогу — product_id, ціни бекенд бере сам. */
+/** Server request body: catalog tiles go as product_id, and the backend looks up prices itself. */
 export function toServerPayload(form: CalcForm) {
   return {
     room: form.room,
@@ -207,7 +207,7 @@ type ServerSurface = {
   openings?: { width_m: string; height_m: string; count?: number }[];
 };
 
-/** Збережений кошторис → форма. Плитки з каталогу підставляє loadTiles. */
+/** Saved estimate → form. loadTiles fills in the catalog tiles. */
 export function formFromServerInput(
   input: { room?: Room; include?: Partial<Record<IncludeKey, boolean>>; surfaces: ServerSurface[] },
   tiles: Map<number, CatalogTile>,
@@ -240,5 +240,5 @@ export function formFromServerInput(
   };
 }
 
-/** Відбиток форми: якщо не змінилась — повторно використовуємо збережений кошторис. */
+/** Form fingerprint: if it has not changed, the saved estimate is reused. */
 export const formFingerprint = (form: CalcForm) => JSON.stringify(toServerPayload(form));

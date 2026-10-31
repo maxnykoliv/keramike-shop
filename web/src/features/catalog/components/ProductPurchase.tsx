@@ -16,7 +16,7 @@ import { usePersonalPrices } from "../hooks/usePersonalPrices";
 
 const STOCK: Record<string, string> = { in_stock: "В наявності", on_order: "Під замовлення", out_of_stock: "Немає в наявності" };
 
-/** Ціна, «Скільки мені потрібно?», кількість і кнопка «Додати в кошик». */
+/** Price, the "how much do I need?" helper, quantity and the add-to-cart button. */
 export function ProductPurchase({ product }: { product: ProductDetail }) {
   const tile = product.tile_spec as unknown as TileSpec | null;
   const { isMaster, priceOf } = usePersonalPrices([product.id]);

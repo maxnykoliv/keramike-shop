@@ -1,4 +1,4 @@
-"""Інтерфейс платіжного провайдера. Новий банк = новий клас, замовлення не змінюються."""
+"""Payment provider interface. A new bank means a new class; orders stay unchanged."""
 
 from dataclasses import dataclass, field
 from typing import Any, Protocol

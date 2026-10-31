@@ -54,7 +54,7 @@ def _transition_action(target: str, description: str):
             messages.error(request, exc.message)
         return redirect(reverse("admin:orders_order_change", args=[object_id]))
 
-    # Unfold перевіряє права за іменем функції, тому ім'я задаємо до декорування.
+    # Unfold checks permissions by function name, so the name is set before decorating.
     handler.__name__ = handler.__qualname__ = f"to_{target}"
     return action(description=description, url_path=f"to-{target}",
                   permissions=[f"to_{target}"])(handler)

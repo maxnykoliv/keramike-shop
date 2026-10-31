@@ -1,8 +1,8 @@
 import { swatchColors } from "@/shared/lib/swatch";
 
 /**
- * Зразок плитки, поки немає фото: колір з характеристик і сітка швів у пропорціях формату.
- * Дає уявлення і про колір, і про розмір (60×60 — квадрати, 30×60 — цеглинки).
+ * A tile swatch until there is a photo: the color from the specs and a joint grid in the tile's proportions.
+ * It conveys both color and size (60×60 shows squares, 30×60 shows bricks).
  */
 export function TileSwatch({
   width = 600, height = 600, color, className, label,

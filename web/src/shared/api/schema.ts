@@ -43,7 +43,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description Кошториси, збережені клієнтом після входу. */
+        /** @description Estimates saved by a logged-in customer. */
         get: operations["account_estimates_list"];
         put?: never;
         post?: never;
@@ -76,7 +76,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description Історія замовлень клієнта, разом із гостьовими з тим самим телефоном. */
+        /** @description The customer's order history, including guest orders with the same phone number. */
         get: operations["account_orders_list"];
         put?: never;
         post?: never;
@@ -421,8 +421,8 @@ export interface paths {
         get?: never;
         put?: never;
         /**
-         * @description Ціни для поточного клієнта. Каталог кешується з роздрібними цінами для всіх,
-         *     а сайт накладає ціни майстра поверх нього цим запитом.
+         * @description Prices for the current customer. The catalog is cached with retail prices for everyone,
+         *     and the site overlays master prices using this request.
          */
         post: operations["catalog_prices_create"];
         delete?: never;
@@ -684,7 +684,7 @@ export interface components {
             weight_kg: string;
             warnings: components["schemas"]["Warning"][];
         };
-        /** @description Лише для схеми OpenAPI: відповідь будує cart_to_dict. */
+        /** @description For the OpenAPI schema only: cart_to_dict builds the response. */
         Cart: {
             token: string;
             lines: components["schemas"]["CartLine"][];

@@ -1,4 +1,4 @@
-"""Клієнт Telegram Bot API для бота входу."""
+"""Telegram Bot API client for the login bot."""
 
 from typing import Any
 

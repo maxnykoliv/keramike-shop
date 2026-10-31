@@ -10,7 +10,7 @@ const tones: Record<Tone, string> = {
   success: "border-success",
 };
 
-/** Попередження: тонка лінія зліва, текст Small. */
+/** Notice: a thin line on the left, Small text. */
 export function Notice({ tone = "warning", children, className }: { tone?: Tone; children: ReactNode; className?: string }) {
   return (
     <div role={tone === "error" ? "alert" : "status"} className={cn("t-small border-l-2 py-1 pl-3", tones[tone], className)}>

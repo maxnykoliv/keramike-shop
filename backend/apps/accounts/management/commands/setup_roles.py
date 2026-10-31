@@ -1,4 +1,4 @@
-"""Створює групи «Власник» і «Менеджер» з потрібними правами. Безпечно запускати повторно."""
+"""Creates the "Власник" (owner) and "Менеджер" (manager) staff groups. Safe to rerun."""
 
 from django.contrib.auth.models import Group, Permission
 from django.core.management.base import BaseCommand
@@ -8,7 +8,7 @@ from apps.core.roles import MANAGER_GROUP, OWNER_GROUP
 PROJECT_APPS = ["accounts", "customers", "catalog", "calc", "cart", "orders", "payments",
                 "delivery", "leads"]
 
-# Менеджер: замовлення, заявки, відправлення, описи товарів. Без цін, калькулятора, персоналу.
+# Manager: orders, leads, shipments, product descriptions. No prices, calculator or staff.
 MANAGER_PERMISSIONS = {
     "orders": ["view_order", "change_order", "view_orderitem", "change_orderitem",
                "add_orderitem", "delete_orderitem", "view_orderevent"],
@@ -26,7 +26,7 @@ MANAGER_PERMISSIONS = {
 
 
 class Command(BaseCommand):
-    help = "Створює ролі персоналу"
+    help = "Creates the staff roles"
 
     def handle(self, *args, **options) -> None:
         owner, _ = Group.objects.get_or_create(name=OWNER_GROUP)
@@ -44,6 +44,6 @@ class Command(BaseCommand):
             )
         manager.permissions.set(perms)
         self.stdout.write(self.style.SUCCESS(
-            f"Ролі готові: {OWNER_GROUP} ({owner.permissions.count()} прав), "
-            f"{MANAGER_GROUP} ({manager.permissions.count()} прав)"
+            f"Roles ready: {OWNER_GROUP} ({owner.permissions.count()} permissions), "
+            f"{MANAGER_GROUP} ({manager.permissions.count()} permissions)"
         ))

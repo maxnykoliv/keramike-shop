@@ -8,7 +8,7 @@ from apps.customers.selectors import require_customer
 
 
 class AccountEstimatesView(ListAPIView):
-    """Кошториси, збережені клієнтом після входу."""
+    """Estimates saved by a logged-in customer."""
 
     permission_classes = [IsAuthenticated]
     serializer_class = AccountEstimateSerializer

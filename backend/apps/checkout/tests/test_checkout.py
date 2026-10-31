@@ -67,7 +67,7 @@ def test_idempotency_key_returns_same_order(api, tile):
 
 
 def test_out_of_stock_blocks_order(api, tile):
-    token = make_cart(tile, qty=100)  # 144 м² при залишку 100
+    token = make_cart(tile, qty=100)  # 144 m² with 100 in stock
     response = api.post("/api/v1/orders/", payload(token), format="json")
     assert response.status_code == 409
     assert response.json()["code"] == "out_of_stock"

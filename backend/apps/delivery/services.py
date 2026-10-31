@@ -1,4 +1,4 @@
-"""Довідники й вартість доставки, ТТН, синхронізація статусів посилок."""
+"""Delivery reference data and pricing, waybills, parcel status sync."""
 
 import secrets
 from decimal import Decimal
@@ -22,7 +22,7 @@ logger = structlog.get_logger(__name__)
 
 DIRECTORY_TTL = 60 * 60 * 24
 QUOTE_TTL = 60 * 30
-# Коди статусів Нової пошти: 9, 10, 11 — отримано; 102, 103, 108 — повернення/відмова.
+# Nova Poshta status codes: 9, 10, 11 = received; 102, 103, 108 = returned/refused.
 NP_DELIVERED = {"9", "10", "11"}
 NP_RETURNED = {"102", "103", "108"}
 
@@ -49,7 +49,7 @@ def warehouses(city_ref: str, query: str = "") -> list[dict[str, str]]:
 
 
 def quote(*, method: str, cart_token: str, city_ref: str = "") -> dict[str, Any]:
-    """Рахує доставку для кошика й кладе результат у кеш. Оформлення бере його за quote_id."""
+    """Quotes delivery for a cart and caches the result. Checkout picks it up by quote_id."""
     view = cart_view(get_cart(cart_token))
     cost_kop: int | None
     if method == DeliveryMethod.PICKUP:
@@ -79,7 +79,7 @@ def quote(*, method: str, cart_token: str, city_ref: str = "") -> dict[str, Any]
 
 
 def cached_quote(quote_id: str | None, *, method: str, cart_token: str) -> int | None:
-    """Вартість, яку клієнт бачив. None — «уточнюється менеджером»."""
+    """The price the customer saw. None means "to be confirmed by a manager"."""
     if method == DeliveryMethod.PICKUP:
         return 0
     if not quote_id:
@@ -91,7 +91,7 @@ def cached_quote(quote_id: str | None, *, method: str, cart_token: str) -> int |
 
 
 def on_order_status_changed(payload: dict[str, Any]) -> None:
-    """Зібране замовлення Новою поштою отримує чернетку відправлення."""
+    """A packed Nova Poshta order gets a draft shipment."""
     if payload.get("to") != OrderStatus.PACKED:
         return
     order = order_selectors.get_order(payload["order_id"])

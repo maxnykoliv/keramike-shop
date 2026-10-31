@@ -1,7 +1,7 @@
 import { calculate, type CalcSettings, type Layout } from "@/calc";
 import type { TileSpec } from "@/shared/api/types";
 
-/** «Скільки мені потрібно?» на картці товару: лише плитка, без матеріалів і роботи. */
+/** The "how much do I need?" helper on the product card: tile only, no materials or labour. */
 export function quickTileEstimate(spec: TileSpec, priceKop: number, area: string, layout: Layout, settings: CalcSettings) {
   const result = calculate({
     room: "other",

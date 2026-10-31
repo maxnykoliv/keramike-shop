@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 
-/** Кабінет лише після входу. Саму сесію перевіряє бекенд; тут — швидкий редирект без cookie. */
+/** The account requires login. The backend validates the session; this is just a fast redirect when there is no cookie. */
 export function proxy(request: NextRequest) {
   if (!request.cookies.get("kr_session")) {
     const url = request.nextUrl.clone();

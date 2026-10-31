@@ -60,7 +60,7 @@ def test_online_order_cannot_ship_unpaid(tile):
 
 
 def test_confirm_fails_when_stock_sold_out(tile):
-    first = create(tile, qty=40)  # 57,6 м²
+    first = create(tile, qty=40)  # 57.6 m²
     second = create(tile, qty=40)
     services.transition(first.id, OrderStatus.CONFIRMED)
     with pytest.raises(OutOfStock):

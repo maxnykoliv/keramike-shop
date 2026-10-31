@@ -1,6 +1,6 @@
-"""Читання каталогу.
+"""Catalog reads.
 
-Ціноутворення рядка тут, щоб кошик, замовлення й калькулятор рахували однаково.
+Line pricing lives here so the cart, orders and calculator all price the same way.
 """
 
 from dataclasses import dataclass
@@ -80,7 +80,7 @@ def search_products(query: str, limit: int = 10) -> QuerySet[Product]:
 
 
 def facets(qs: QuerySet[Product]) -> dict[str, Any]:
-    """Доступні значення фільтрів і кількість товарів для кожного."""
+    """Available filter values and the product count for each."""
     ids = qs.values("id")
     tiles = TileSpec.objects.filter(product_id__in=ids)
     prices = qs.aggregate(min=Min("price_kop"), max=Max("price_kop"))
@@ -114,7 +114,7 @@ def facets(qs: QuerySet[Product]) -> dict[str, Any]:
 
 @dataclass(frozen=True)
 class LinePrice:
-    """Рядок кошика або замовлення. Для плитки qty — упаковки, base_qty — м²."""
+    """A cart or order line. For tiles, qty is packs and base_qty is m²."""
 
     product_id: int
     sku: str

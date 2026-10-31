@@ -3,7 +3,7 @@ import { NextResponse, type NextRequest } from "next/server";
 
 import { serverEnv } from "@/env";
 
-/** Бекенд може скинути кеш каталогу одразу після зміни товару: POST {tag: "catalog"}. */
+/** Lets the backend clear the catalog cache right after a product changes: POST {tag: "catalog"}. */
 export async function POST(req: NextRequest) {
   const secret = serverEnv().REVALIDATE_SECRET;
   if (!secret || req.headers.get("x-revalidate-secret") !== secret) {

@@ -4,7 +4,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { SESSION_COOKIE } from "@/shared/api/cookies";
 import { callApi, forwardHeaders, isSameOrigin, jsonError } from "@/shared/api/proxy";
 
-/** Дозволені шляхи Django. Вебхуки, адмінка й службові маршрути через проксі недоступні. */
+/** Allowed Django paths. Webhooks, the admin and internal routes are not reachable through the proxy. */
 const RULES: Record<string, RegExp[]> = {
   GET: [
     /^catalog\/products(\/[\w-]+)?$/,

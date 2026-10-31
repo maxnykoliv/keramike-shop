@@ -96,7 +96,7 @@ const CHIP_LABELS: Record<string, (v: string) => string> = {
   in_stock: () => "В наявності",
 };
 
-/** Рядок над сіткою: кнопка фільтрів (телефон), активні фільтри плашками, сортування. */
+/** Bar above the grid: filters button (phone), active filters as chips, sorting. */
 export function CatalogToolbar({ facets, count }: { facets: Facets; count: number }) {
   const { params, set, clear, pending } = useFilterUrl();
   const [open, setOpen] = useState(false);

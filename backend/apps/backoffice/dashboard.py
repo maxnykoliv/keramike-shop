@@ -1,4 +1,4 @@
-"""Статистика на головній адмінки. Лише для власника."""
+"""Stats on the admin home page. Owner only."""
 
 from datetime import timedelta
 from typing import Any

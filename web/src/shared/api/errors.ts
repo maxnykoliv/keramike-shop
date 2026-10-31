@@ -1,4 +1,4 @@
-/** Формат помилок бекенду: {code, message, field, errors?}. */
+/** Backend error format: {code, message, field, errors?}. */
 export class ApiError extends Error {
   readonly status: number;
   readonly code: string;
@@ -20,7 +20,7 @@ export class ApiError extends Error {
 
 export const isApiError = (e: unknown): e is ApiError => e instanceof ApiError;
 
-/** Плоский список «шлях поля → повідомлення» з вкладеної структури DRF. */
+/** A flat "field path → message" list from DRF's nested structure. */
 export function flattenFieldErrors(errors: unknown, prefix = ""): Record<string, string> {
   const out: Record<string, string> = {};
   if (Array.isArray(errors)) {
@@ -42,7 +42,7 @@ export function flattenFieldErrors(errors: unknown, prefix = ""): Record<string,
   return out;
 }
 
-/** Повідомлення для кодів, які мають окремий текст в інтерфейсі. */
+/** Messages for codes that have their own text in the UI. */
 export function friendlyMessage(error: unknown): string {
   if (!isApiError(error)) return "Немає з'єднання. Перевірте інтернет і спробуйте ще раз.";
   switch (error.code) {

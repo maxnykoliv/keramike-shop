@@ -19,7 +19,7 @@ function useDebounced(value: string, ms = 300) {
   return v;
 }
 
-/** Місто з пошуком і відділення списком. Довідники кешує бекенд, тут — TanStack Query. */
+/** City with search and a branch list. The backend caches the reference data; TanStack Query caches it here. */
 export function NovaPoshtaFields({ value, onChange, errors }: {
   value: NpValue;
   onChange: (value: NpValue) => void;

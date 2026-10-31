@@ -45,5 +45,5 @@ def test_convert_to_order(estimate):
     lead.refresh_from_db()
     assert lead.status == Lead.Status.CONVERTED
     assert lead.order == order
-    assert order.items.count() == 3  # плитка, клей, затирка; робота не є товаром
+    assert order.items.count() == 3  # tile, glue, grout; labour is not a product
     assert order.subtotal_kop == 343800

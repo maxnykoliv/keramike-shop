@@ -6,7 +6,7 @@ export const metadata: Metadata = { title: "Вхід", robots: { index: false } 
 
 type Props = { searchParams: Promise<{ next?: string }> };
 
-/** Повертаємо лише на свої сторінки: «//evil.com» і повні адреси відкидаємо. */
+/** Redirect back to our own pages only: "//evil.com" and absolute URLs are rejected. */
 function safeNext(value: string | undefined): string {
   if (!value || !value.startsWith("/") || value.startsWith("//") || value.startsWith("/\\")) return "/account";
   return value;

@@ -1,4 +1,4 @@
-/** Запити з браузера. Ідуть лише на домен сайту: /api/bff, /api/cart, /api/auth. */
+/** Browser requests. They only go to the site's own domain: /api/bff, /api/cart, /api/auth. */
 import { ApiError } from "./errors";
 
 type Init = { method?: "GET" | "POST" | "PATCH" | "DELETE"; body?: unknown; headers?: Record<string, string> };
@@ -25,5 +25,5 @@ export async function request<T>(url: string, { method = "GET", body, headers }:
   return data as T;
 }
 
-/** Проксі до Django через сервер Next.js: path без /api/v1, напр. "calc/config". */
+/** Proxy to Django through the Next.js server: path without /api/v1, e.g. "calc/config". */
 export const bff = <T>(path: string, init?: Init) => request<T>(`/api/bff/${path.replace(/^\//, "")}`, init);

@@ -1,4 +1,4 @@
-"""Кабінет і ціни майстрів у каталозі, кошику, калькуляторі та замовленнях."""
+"""Accounts and master prices in the catalog, cart, calculator and orders."""
 
 import pytest
 
@@ -8,7 +8,7 @@ from apps.customers.models import Customer
 from apps.orders.models import Order
 
 pytestmark = pytest.mark.django_db
-MASTER_PRICE = 55000  # замість 65 000 коп./м²
+MASTER_PRICE = 55000  # instead of 65 000 kop/m²
 
 
 @pytest.fixture

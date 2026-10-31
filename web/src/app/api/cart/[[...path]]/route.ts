@@ -4,7 +4,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { CART_COOKIE, CART_MAX_AGE, SESSION_COOKIE, cookieOptions } from "@/shared/api/cookies";
 import { callApi, forwardHeaders, isSameOrigin, jsonError, readJson } from "@/shared/api/proxy";
 
-/** Кошик через сервер Next.js: токен кошика живе в httpOnly cookie, браузер його не бачить. */
+/** Cart via the Next.js server: the cart token lives in an httpOnly cookie that the browser cannot read. */
 const EMPTY_CART = {
   token: "",
   lines: [],
@@ -36,7 +36,7 @@ async function handle(req: NextRequest, { params }: Ctx) {
   let token = store.get(CART_COOKIE)?.value ?? null;
   const [action, arg] = path;
 
-  // GET /api/cart — вміст кошика. Без кошика — порожній, нічого не створюємо.
+  // GET /api/cart returns the cart contents. Without a cart it is empty and nothing is created.
   if (method === "GET" && !action) {
     if (!token) return NextResponse.json(EMPTY_CART);
     const response = await callApi(`carts/${token}`, { method: "GET", headers: forwardHeaders(req, session, false) });
@@ -67,7 +67,7 @@ async function handle(req: NextRequest, { params }: Ctx) {
   else if (action === "from-estimate" && arg && /^[A-Za-z0-9]{8}$/.test(arg) && method === "POST") upstreamPath = `from-estimate/${arg}`;
   else return jsonError(404, "not_found", "Не знайдено");
 
-  // Додавання створює кошик за потреби; протермінований кошик замінюється новим.
+  // Adding creates a cart when needed; an expired cart is replaced with a new one.
   const creates = method === "POST";
   let created = false;
   if (!token && creates) {

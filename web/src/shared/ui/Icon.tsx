@@ -1,6 +1,6 @@
 import type { SVGProps } from "react";
 
-/** Лінійні іконки, товщина лінії 1,25 px — один набір на весь сайт. */
+/** Line icons with a 1.25 px stroke: one set for the whole site. */
 const PATHS = {
   cart: "M3 4h2l2.2 10.2a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.8L20 8H6.3 M9 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z M17 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z",
   user: "M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6",

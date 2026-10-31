@@ -1,8 +1,8 @@
 import { defineConfig, devices } from "@playwright/test";
 
 /**
- * E2E на справжньому стеку: Django (демо-дані, фейкова оплата) + зібраний Next.js.
- * Порти окремі від dev-серверів, щоб тести не чіпали робочу базу.
+ * E2E on the real stack: Django (demo data, fake payments) + a production Next.js build.
+ * Ports differ from the dev servers so tests never touch the working database.
  */
 const WEB_PORT = Number(process.env.E2E_WEB_PORT ?? 3100);
 const API_PORT = Number(process.env.E2E_API_PORT ?? 8010);

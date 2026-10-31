@@ -1,4 +1,4 @@
-"""Назви подій замовлень. Дані події — лише id, обробники читають актуальний стан самі."""
+"""Order event names. Event payloads carry only ids; handlers read the current state themselves."""
 
 ORDER_CREATED = "order.created"
 ORDER_STATUS_CHANGED = "order.status_changed"

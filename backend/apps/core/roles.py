@@ -1,4 +1,4 @@
-"""Ролі персоналу. Групи створює команда setup_roles."""
+"""Staff roles. The setup_roles command creates the groups."""
 
 OWNER_GROUP = "Власник"
 MANAGER_GROUP = "Менеджер"

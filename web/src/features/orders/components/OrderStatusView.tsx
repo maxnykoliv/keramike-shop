@@ -6,7 +6,7 @@ import { Badge } from "@/shared/ui";
 
 import { DELIVERY_LABELS, ORDER_STEPS, PAYMENT_LABELS } from "../labels";
 
-/** Сторінка статусу замовлення: кроки, оплата, позиції, суми. */
+/** Order status page: steps, payment, lines, totals. */
 export function OrderStatusView({ order }: { order: PublicOrder }) {
   const cancelled = order.status === "cancelled";
   const currentIndex = ORDER_STEPS.findIndex((s) => s.status === order.status);

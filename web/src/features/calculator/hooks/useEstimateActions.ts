@@ -9,8 +9,8 @@ import { track } from "@/shared/lib/analytics";
 import { formFingerprint, toServerPayload, type CalcForm } from "../model";
 
 /**
- * Дії з результатом. Кошторис зберігається на сервері один раз на незмінну форму:
- * «у кошик», «поділитися», PDF і заявка використовують той самий код.
+ * Actions on the result. The estimate is saved on the server once per unchanged form:
+ * add to cart, share, PDF and lead all reuse the same code.
  */
 export function useEstimateActions(form: CalcForm) {
   const saved = useRef<{ fingerprint: string; titled: boolean; estimate: EstimateCreated } | null>(null);
@@ -28,7 +28,7 @@ export function useEstimateActions(form: CalcForm) {
 
   const shareUrl = (code: string) => `${window.location.origin}/calculator/${code}`;
 
-  /** PDF генерується у фоні: опитуємо до 15 секунд. */
+  /** The PDF is rendered in the background: poll for up to 15 seconds. */
   const pdf = async (code: string): Promise<string | null> => {
     for (let attempt = 0; attempt < 15; attempt++) {
       const status = await bff<PdfStatus>(`calc/estimates/${code}/pdf`);

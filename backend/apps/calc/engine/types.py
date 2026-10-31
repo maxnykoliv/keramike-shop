@@ -1,4 +1,4 @@
-"""Типи рушія калькулятора. Без Django: модуль має працювати як чистий Python."""
+"""Calculator engine types. No Django: the module must work as plain Python."""
 
 from dataclasses import dataclass, field
 from decimal import Decimal
@@ -31,9 +31,9 @@ class Layout(StrEnum):
 
 
 class SizeClass(StrEnum):
-    SMALL = "small"    # більша сторона до 300 мм
-    MEDIUM = "medium"  # до 600 мм
-    LARGE = "large"    # понад 600 мм
+    SMALL = "small"    # longer side up to 300 mm
+    MEDIUM = "medium"  # up to 600 mm
+    LARGE = "large"    # over 600 mm
 
 
 class Material(StrEnum):

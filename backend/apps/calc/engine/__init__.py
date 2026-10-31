@@ -1,4 +1,4 @@
-"""Чистий рушій калькулятора. Не імпортує Django — це перевіряє import-linter."""
+"""The pure calculator engine. It does not import Django; import-linter enforces this."""
 
 from apps.calc.engine.core import calculate
 from apps.calc.engine.errors import CalcValidationError

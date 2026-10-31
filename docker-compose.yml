@@ -1,4 +1,4 @@
-# Локальна розробка: docker compose up. API на http://localhost:8000, адмінка на /admin/.
+# Local development: docker compose up. API at http://localhost:8000, admin at /admin/.
 services:
   postgres:
     image: postgres:16-alpine

@@ -1,4 +1,4 @@
-"""Статуси замовлення і дозволені переходи. Змінювати статус — лише через services.transition."""
+"""Order statuses and allowed transitions. Change status only through services.transition."""
 
 from django.db import models
 
@@ -40,7 +40,7 @@ TRANSITIONS: dict[str, frozenset[str]] = {
     OrderStatus.CANCELLED: frozenset(),
 }
 
-# Статуси, у яких залишок зарезервований.
+# Statuses in which stock is reserved.
 RESERVED_STATUSES = frozenset({OrderStatus.CONFIRMED, OrderStatus.PACKED})
 
 

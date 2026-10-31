@@ -9,7 +9,7 @@ import type { PricesResponse } from "@/shared/api/types";
 
 import type { CalcForm } from "../model";
 
-/** Ціни майстра для плитки з форми, щоб миттєвий розрахунок збігався з серверним. */
+/** Master prices for the form's tiles, so the instant calculation matches the server. */
 export function usePersonalPricesForTiles(form: CalcForm | null) {
   const { isMaster } = useSession();
   const ids = [...new Set((form?.surfaces ?? []).flatMap((s) => (s.tile?.source === "catalog" ? [s.tile.productId] : [])))].sort();

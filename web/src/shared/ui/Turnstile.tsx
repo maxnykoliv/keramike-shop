@@ -9,7 +9,7 @@ type TurnstileWindow = Window & {
   turnstile?: { render: (el: string, opts: { sitekey: string; callback: (t: string) => void; appearance: string }) => void };
 };
 
-/** Невидимий захист форм від спаму. Без ключа (розробка, тести) нічого не рендерить. */
+/** Invisible form spam protection. Renders nothing without a key (development, tests). */
 export function Turnstile({ onToken }: { onToken: (token: string) => void }) {
   const id = `ts${useId().replace(/:/g, "")}`;
   const key = publicEnv.turnstileSiteKey;

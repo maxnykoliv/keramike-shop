@@ -40,7 +40,7 @@ export function ResultActions({ form, localTotal, disabled }: { form: CalcForm; 
     }
   };
 
-  /** Сервер рахує остаточно. Якщо сума інша — показуємо серверну й пояснюємо чому. */
+  /** The server has the final say. If its total differs, show the server's and explain why. */
   const checkTotal = (estimate: EstimateCreated) => {
     if (localTotal !== null && estimate.result.total_kop !== localTotal) {
       setMessage({ tone: "info", text: `Ціни щойно оновились. Актуальна сума: ${formatUah(estimate.result.total_kop)}.` });

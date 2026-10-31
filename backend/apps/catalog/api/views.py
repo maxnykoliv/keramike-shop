@@ -18,7 +18,7 @@ CACHE_TIMEOUT = 300
 
 
 def cached_get(view_method):
-    """Кешує GET-відповідь каталогу. Ключ містить версію, яку скидає збереження товару."""
+    """Caches catalog GET responses. The key includes a version that saving a product bumps."""
 
     @wraps(view_method)
     def wrapper(self, request, *args, **kwargs):
@@ -81,8 +81,8 @@ class SearchView(APIView):
 
 
 class PersonalPricesView(APIView):
-    """Ціни для поточного клієнта. Каталог кешується з роздрібними цінами для всіх,
-    а сайт накладає ціни майстра поверх нього цим запитом."""
+    """Prices for the current customer. The catalog is cached with retail prices for everyone,
+    and the site overlays master prices using this request."""
 
     @extend_schema(
         request=inline_serializer("PricesRequest", {

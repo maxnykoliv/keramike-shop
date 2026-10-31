@@ -6,7 +6,7 @@ from apps.core.models import TimeStampedModel
 
 
 class Customer(TimeStampedModel):
-    """Клієнт сайту. Не плутати з персоналом (accounts.User), який входить в адмінку."""
+    """A site customer. Not to be confused with staff (accounts.User), who log in to the admin."""
 
     phone = models.CharField("телефон", max_length=16, unique=True)
     name = models.CharField("ім'я", max_length=150, blank=True)
@@ -30,7 +30,7 @@ class Customer(TimeStampedModel):
     def __str__(self) -> str:
         return f"{self.name or 'Без імені'}, {self.phone}"
 
-    # Потрібно DRF: request.user — це клієнт.
+    # Needed by DRF: request.user is the customer.
     @property
     def is_authenticated(self) -> bool:
         return True
@@ -65,7 +65,7 @@ class CustomerAddress(TimeStampedModel):
 
 
 class CustomerSession(models.Model):
-    """Сесія клієнта. Зберігаємо лише SHA-256 токена, сам токен знає тільки браузер."""
+    """A customer session. Only the token's SHA-256 is stored; only the browser knows the token."""
 
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name="sessions")
     key_hash = models.CharField(max_length=64, unique=True, editable=False)
@@ -85,7 +85,7 @@ class CustomerSession(models.Model):
 
 
 class TelegramLogin(models.Model):
-    """Спроба входу через Telegram-бота: сайт створює її, бот підтверджує номер."""
+    """A Telegram bot login attempt: the site creates it, the bot confirms the phone number."""
 
     class Status(models.TextChoices):
         PENDING = "pending", "Очікує бота"
@@ -116,7 +116,7 @@ class TelegramLogin(models.Model):
 
 
 class PhoneCode(models.Model):
-    """Одноразовий код для входу через Viber або SMS. Зберігаємо лише хеш коду."""
+    """A one-time login code sent via Viber or SMS. Only the code's hash is stored."""
 
     phone = models.CharField(max_length=16, db_index=True)
     channel = models.CharField(max_length=20)

@@ -1,6 +1,6 @@
-"""Канал для розробки й тестів: код пишеться в лог, в outbox і, за потреби, у файл.
+"""Development and test channel: the code goes to the log, to the outbox and, optionally, to a file.
 
-Файл (AUTH_CONSOLE_OUTBOX_FILE) читають e2e-тести фронтенду, щоб увійти за кодом.
+The frontend e2e tests read that file (AUTH_CONSOLE_OUTBOX_FILE) to log in with a code.
 """
 
 import structlog

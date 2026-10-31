@@ -1,11 +1,11 @@
 import { z } from "zod";
 
-/** Змінні сервера. Перевіряються при першому зверненні; без обов'язкових сайт не стартує. */
+/** Server variables. Validated on first access; the site does not start without the required ones. */
 const serverSchema = z.object({
   API_URL: z.string().url().default("http://127.0.0.1:8000"),
   SITE_URL: z.string().url().default("http://localhost:3000"),
   REVALIDATE_SECRET: z.string().optional(),
-  /** Спільний секрет з бекендом (BFF_SHARED_SECRET): лише з ним Django вірить X-Client-IP. */
+  /** Secret shared with the backend (BFF_SHARED_SECRET): Django trusts X-Client-IP only with it. */
   BFF_SECRET: z.string().optional(),
 });
 
@@ -22,7 +22,7 @@ export function serverEnv() {
   return cached;
 }
 
-/** Публічні змінні: Next вбудовує їх у бандл під час збірки. */
+/** Public variables: Next inlines them into the bundle at build time. */
 export const publicEnv = {
   turnstileSiteKey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "",
   gaId: process.env.NEXT_PUBLIC_GA_ID ?? "",

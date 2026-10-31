@@ -1,4 +1,4 @@
-"""Задачі розсилки. Безпечні для повтору: ключ дедуплікації не дає надіслати двічі."""
+"""Notification tasks. Safe to retry: a deduplication key prevents sending twice."""
 
 from celery import shared_task
 from django.core.cache import cache

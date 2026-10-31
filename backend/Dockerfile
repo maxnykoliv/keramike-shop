@@ -5,8 +5,8 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1
 
-# pg_dump 17 з репозиторію PGDG знімає дампи з PostgreSQL 16 на Railway.
-# Pango і шрифти потрібні WeasyPrint для PDF кошторисів.
+# pg_dump 17 from the PGDG repository dumps the PostgreSQL 16 database on Railway.
+# WeasyPrint needs Pango and fonts to render estimate PDFs.
 RUN apt-get update \
     && apt-get install -y --no-install-recommends curl ca-certificates \
     && install -d /usr/share/postgresql-common/pgdg \

@@ -1,5 +1,5 @@
 {
-  "name": "Підлога ванної 2,0×1,7 м, плитка 60×60, приклад із ТЗ",
+  "name": "Bathroom floor 2.0×1.7 m, 60×60 tile, example from the spec",
   "input": {
     "room": "bathroom",
     "surfaces": [

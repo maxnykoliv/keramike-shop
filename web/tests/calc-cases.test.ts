@@ -1,4 +1,4 @@
-// Ті самі еталони, що й backend/apps/calc/tests/test_engine_cases.py.
+// The same golden cases as backend/apps/calc/tests/test_engine_cases.py.
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";

@@ -1,4 +1,4 @@
-"""Спільні налаштування. Усе, що відрізняється між середовищами, читається зі змінних середовища."""
+"""Shared settings. Anything that differs between environments comes from env variables."""
 
 from datetime import timedelta
 from pathlib import Path
@@ -17,7 +17,7 @@ ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
 CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=[])
 
 INSTALLED_APPS = [
-    # Unfold має йти перед django.contrib.admin.
+    # Unfold must come before django.contrib.admin.
     "unfold",
     "unfold.contrib.filters",
     "unfold.contrib.import_export",
@@ -29,7 +29,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.postgres",
-    # Сторонні пакети
+    # Third-party packages
     "rest_framework",
     "drf_spectacular",
     "django_filters",
@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     "simple_history",
     "axes",
     "storages",
-    # Застосунки проєкту, від основи до точок входу
+    # Project apps, from the foundation up to the entry points
     "apps.core",
     "apps.accounts",
     "apps.customers",
@@ -66,7 +66,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "simple_history.middleware.HistoryRequestMiddleware",
-    # django-axes має бути останнім.
+    # django-axes must be last.
     "axes.middleware.AxesMiddleware",
 ]
 
@@ -117,15 +117,15 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
 ]
 
-# Блокування входу після 5 невдалих спроб на 15 хвилин.
+# Lock out login for 15 minutes after 5 failed attempts.
 AXES_FAILURE_LIMIT = 5
 AXES_COOLOFF_TIME = timedelta(minutes=15)
 AXES_RESET_ON_SUCCESS = True
 AXES_CLIENT_IP_CALLABLE = "apps.core.security.client_ip"
 
-# IP клієнта (apps.core.security.client_ip). Сайт передає його із секретом BFF_SHARED_SECRET,
-# який має збігатися зі змінною BFF_SECRET на Vercel. TRUSTED_PROXY_COUNT — скільки проксі
-# перед Django дописують X-Forwarded-For: 0 локально, 1 на Railway.
+# Client IP (apps.core.security.client_ip). The site sends it with BFF_SHARED_SECRET,
+# which must match BFF_SECRET on Vercel. TRUSTED_PROXY_COUNT is how many proxies in front
+# of Django append to X-Forwarded-For: 0 locally, 1 on Railway.
 BFF_SHARED_SECRET = env("BFF_SHARED_SECRET", default="")
 TRUSTED_PROXY_COUNT = env.int("TRUSTED_PROXY_COUNT", default=0)
 
@@ -141,7 +141,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME", default="")
 if AWS_STORAGE_BUCKET_NAME:
-    # Cloudflare R2 через S3-сумісний API.
+    # Cloudflare R2 through the S3-compatible API.
     AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
     AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
     AWS_S3_ENDPOINT_URL = env("AWS_S3_ENDPOINT_URL")
@@ -168,7 +168,7 @@ CORS_ALLOW_HEADERS = (
 )
 
 REST_FRAMEWORK = {
-    # Клієнти — токен сесії в заголовку Authorization. Персонал — сесія Django admin.
+    # Customers use a session token in the Authorization header; staff use the Django admin session.
     "DEFAULT_AUTHENTICATION_CLASSES": ["apps.customers.authentication.CustomerTokenAuthentication"],
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.AllowAny"],
     "UNAUTHENTICATED_USER": None,
@@ -188,7 +188,7 @@ REST_FRAMEWORK = {
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "Keramike API",
-    "DESCRIPTION": "Публічне API магазину кераміки: каталог, калькулятор, кошик, замовлення.",
+    "DESCRIPTION": "Public API of the ceramic tile shop: catalog, calculator, cart, orders.",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
     "COMPONENT_SPLIT_REQUEST": True,
@@ -202,7 +202,7 @@ SPECTACULAR_SETTINGS = {
     },
 }
 
-# Celery: дві черги, щоб важкі задачі не затримували сповіщення.
+# Celery: two queues so heavy tasks do not delay notifications.
 CELERY_BROKER_URL = REDIS_URL
 CELERY_RESULT_BACKEND = None
 CELERY_TASK_DEFAULT_QUEUE = "default"
@@ -232,9 +232,9 @@ CELERY_BEAT_SCHEDULE = {
     },
 }
 
-# Інтеграції
+# Integrations
 SITE_URL = env("SITE_URL", default="http://localhost:3000")
-# Той самий рядок, що й REVALIDATE_SECRET на Vercel. Порожньо — сайт оновлює каталог за 5 хвилин.
+# Same string as REVALIDATE_SECRET on Vercel. Empty: the site refreshes the catalog every 5 minutes.
 REVALIDATE_SECRET = env("REVALIDATE_SECRET", default="")
 API_URL = env("API_URL", default="http://localhost:8000")
 
@@ -245,14 +245,14 @@ PAYMENT_PRIVATE_KEY = env("PAYMENT_PRIVATE_KEY", default="")
 NOVA_POSHTA_API_KEY = env("NOVA_POSHTA_API_KEY", default="")
 NOVA_POSHTA_API_URL = "https://api.novaposhta.ua/v2.0/json/"
 
-# Бот входу для клієнтів — окремий від бота сповіщень менеджеру.
+# Customer login bot, separate from the manager notification bot.
 TELEGRAM_LOGIN_BOT_TOKEN = env("TELEGRAM_LOGIN_BOT_TOKEN", default="")
 TELEGRAM_LOGIN_BOT_USERNAME = env("TELEGRAM_LOGIN_BOT_USERNAME", default="")
 TELEGRAM_WEBHOOK_SECRET = env("TELEGRAM_WEBHOOK_SECRET", default="")
-# Канали одноразових кодів: console (розробка), згодом viber, sms.
+# One-time code channels: console (development); viber and sms later.
 AUTH_CODE_CHANNELS = env.list("AUTH_CODE_CHANNELS", default=[])
 CUSTOMER_SESSION_DAYS = env.int("CUSTOMER_SESSION_DAYS", default=60)
-# Лише для розробки й e2e: канал console дописує коди в цей файл.
+# Development and e2e only: the console channel appends codes to this file.
 AUTH_CONSOLE_OUTBOX_FILE = env("AUTH_CONSOLE_OUTBOX_FILE", default="")
 
 TELEGRAM_BOT_TOKEN = env("TELEGRAM_BOT_TOKEN", default="")

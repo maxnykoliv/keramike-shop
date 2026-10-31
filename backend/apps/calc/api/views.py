@@ -18,7 +18,7 @@ from apps.customers.selectors import is_master, request_customer
 
 
 class ConfigView(APIView):
-    """Активні налаштування у форматі рушія — для миттєвого розрахунку в браузері."""
+    """Active settings in the engine format, for instant calculation in the browser."""
 
     @extend_schema(responses=OpenApiTypes.OBJECT,
                    description="Формат як у calc-cases/settings.json")

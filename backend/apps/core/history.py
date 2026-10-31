@@ -1,6 +1,6 @@
-"""Автор змін для django-simple-history.
+"""Change author for django-simple-history.
 
-DRF кладе в request.user клієнта сайту, а автором в історії може бути лише персонал.
+DRF puts the site customer in request.user, but only staff can be authors in the history.
 """
 
 from typing import Any

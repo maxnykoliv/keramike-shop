@@ -59,7 +59,7 @@ function TelegramLogin({ onDone }: { onDone: () => Promise<void> }) {
       setState(result.status);
       if (result.status === "confirmed") await onDone();
     } catch {
-      /* мережа зникла — спробуємо на наступному кроці */
+      /* network dropped: try again on the next tick */
     } finally {
       polling.current = false;
     }
@@ -79,7 +79,7 @@ function TelegramLogin({ onDone }: { onDone: () => Promise<void> }) {
   const start = async () => {
     setError(null);
     setState("starting");
-    // Вікно відкриваємо синхронно з кліком, інакше браузер його заблокує.
+    // Open the window synchronously with the click, otherwise the browser blocks it.
     const tab = typeof window !== "undefined" ? window.open("", "_blank") : null;
     try {
       const data = await request<{ bot_url: string }>("/api/auth/telegram/start", { method: "POST" });

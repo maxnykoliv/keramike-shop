@@ -22,7 +22,7 @@ export function generateMetadata(): Metadata {
   };
 }
 
-// eslint-disable-next-line no-restricted-syntax -- колір рядка браузера = --color-bg
+// eslint-disable-next-line no-restricted-syntax -- browser theme color = --color-bg
 export const viewport: Viewport = { themeColor: "#f7f5f0", width: "device-width", initialScale: 1 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

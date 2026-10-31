@@ -4,7 +4,7 @@ from apps.customers import services
 
 
 class CustomerTokenAuthentication(authentication.BaseAuthentication):
-    """Authorization: Bearer <токен сесії клієнта>. Без заголовка запит анонімний."""
+    """Authorization: Bearer <customer session token>. No header means an anonymous request."""
 
     keyword = "Bearer"
 

@@ -18,9 +18,9 @@ def default_glue() -> dict[str, str]:
 
 
 class CalcSettings(TimeStampedModel):
-    """Версія налаштувань калькулятора.
+    """A version of the calculator settings.
 
-    Опублікована версія незмінна, правки — через нову чернетку.
+    A published version is immutable; changes go through a new draft.
     """
 
     class Status(models.TextChoices):

@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: Keramike API
   version: 1.0.0
-  description: 'Публічне API магазину кераміки: каталог, калькулятор, кошик, замовлення.'
+  description: 'Public API of the ceramic tile shop: catalog, calculator, cart, orders.'
 paths:
   /api/v1/account/addresses:
     get:
@@ -113,7 +113,7 @@ paths:
   /api/v1/account/estimates:
     get:
       operationId: account_estimates_list
-      description: Кошториси, збережені клієнтом після входу.
+      description: Estimates saved by a logged-in customer.
       parameters:
       - name: page
         required: false
@@ -179,7 +179,8 @@ paths:
   /api/v1/account/orders:
     get:
       operationId: account_orders_list
-      description: Історія замовлень клієнта, разом із гостьовими з тим самим телефоном.
+      description: The customer's order history, including guest orders with the same
+        phone number.
       parameters:
       - name: page
         required: false
@@ -678,8 +679,8 @@ paths:
     post:
       operationId: catalog_prices_create
       description: |-
-        Ціни для поточного клієнта. Каталог кешується з роздрібними цінами для всіх,
-        а сайт накладає ціни майстра поверх нього цим запитом.
+        Prices for the current customer. The catalog is cached with retail prices for everyone,
+        and the site overlays master prices using this request.
       tags:
       - catalog
       requestBody:
@@ -1301,7 +1302,7 @@ components:
       - weight_kg
     Cart:
       type: object
-      description: 'Лише для схеми OpenAPI: відповідь будує cart_to_dict.'
+      description: 'For the OpenAPI schema only: cart_to_dict builds the response.'
       properties:
         token:
           type: string

@@ -23,7 +23,7 @@ def create_lead(*, name: str, phone: str, comment: str = "",
 
 @transaction.atomic
 def convert_to_order(lead_id: int, *, actor=None) -> Order:
-    """Створює замовлення з товарів кошторису. Доставку й оплату менеджер уточнює з клієнтом."""
+    """Creates an order from an estimate's products. The manager settles delivery and payment."""
     lead = (Lead.objects.select_for_update(of=("self",)).select_related("estimate")
             .get(pk=lead_id))
     if lead.order_id:

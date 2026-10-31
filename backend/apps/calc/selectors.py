@@ -27,7 +27,7 @@ def active_settings() -> CalcSettings:
 
 
 def settings_dict(model: CalcSettings, *, master: bool = False) -> dict:
-    """Налаштування у форматі рушія: той самий, що в calc-cases/settings.json."""
+    """Settings in the engine format, the same as calc-cases/settings.json."""
     labor: dict[str, dict[str, int]] = {
         "floor": {"small": 0, "medium": 0, "large": 0},
         "walls": {"small": 0, "medium": 0, "large": 0},

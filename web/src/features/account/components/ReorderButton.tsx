@@ -8,7 +8,7 @@ import { friendlyMessage } from "@/shared/api/errors";
 import type { OrderItem } from "@/shared/api/types";
 import { Button, Notice } from "@/shared/ui";
 
-/** Повторити замовлення: позиції йдуть у кошик за поточними цінами. */
+/** Reorder: the lines go into the cart at current prices. */
 export function ReorderButton({ items }: { items: OrderItem[] }) {
   const router = useRouter();
   const { add } = useCartActions();

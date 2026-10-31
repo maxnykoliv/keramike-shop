@@ -19,7 +19,7 @@ const schema = z.object({
 });
 type Values = z.infer<typeof schema>;
 
-/** «Надіслати менеджеру»: кошторис зберігається, менеджер отримує заявку в Telegram. */
+/** "Send to manager": the estimate is saved and the manager gets a lead in Telegram. */
 export function LeadDialog({ open, onOpenChange, getEstimateCode }: {
   open: boolean; onOpenChange: (open: boolean) => void; getEstimateCode: () => Promise<string>;
 }) {

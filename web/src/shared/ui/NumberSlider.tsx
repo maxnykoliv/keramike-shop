@@ -6,8 +6,8 @@ import { cn } from "@/shared/lib/cn";
 import { formatDecimal, parseDecimal } from "@/shared/lib/numbers";
 
 /**
- * Число з повзунком, як у «Калькуляторі MAX»: повзунок для грубого вибору, поле — для точного.
- * Значення — рядок із крапкою ("2.5"); кому користувача перетворюємо.
+ * A number with a slider, as in the client's earlier "Калькулятор MAX": the slider for rough values, the field for exact ones.
+ * The value is a dot-decimal string ("2.5"); a comma typed by the user is converted.
  */
 export function NumberSlider({
   label, value, onChange, min, max, step = 0.05, unit, error, name,

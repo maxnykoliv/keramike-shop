@@ -1,5 +1,5 @@
 {
-  "name": "Кухня 12,5 м² готовою площею, 120×60 по діагоналі, плитка лише для стін",
+  "name": "Kitchen given as 12.5 m², 120×60 diagonal, wall-only tile",
   "input": {
     "room": "kitchen",
     "surfaces": [

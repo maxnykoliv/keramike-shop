@@ -10,7 +10,7 @@ class TimeStampedModel(models.Model):
 
 
 class SingletonModel(models.Model):
-    """Налаштування, які власник змінює в адмінці. Завжди один рядок з pk=1."""
+    """Settings the owner edits in the admin. Always a single row with pk=1."""
 
     objects = models.Manager()
 

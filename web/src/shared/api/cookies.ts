@@ -10,7 +10,7 @@ export const SESSION_MAX_AGE = 60 * 60 * 24 * 60;
 export const CART_MAX_AGE = 60 * 60 * 24 * 30;
 export const LOGIN_MAX_AGE = 60 * 10;
 
-/** httpOnly + SameSite=Lax; Secure — коли сайт працює через HTTPS. */
+/** httpOnly + SameSite=Lax; Secure when the site runs over HTTPS. */
 export function cookieOptions(maxAge: number) {
   return {
     httpOnly: true,

@@ -14,18 +14,18 @@ celerybeat-schedule*
 node_modules/
 web/.next/
 
-# Редактори
+# Editors
 .idea/
 .vscode/
 .DS_Store
 
-# Секрети й локальні налаштування
+# Secrets and local settings
 .env
 .env.*
 !.env.example
 .vercel/
 
-# Артефакти збірки й тестів
+# Build and test artifacts
 *.tsbuildinfo
 web/test-results/
 web/playwright-report/

@@ -22,7 +22,7 @@ def dispatch_event(event: str, payload: dict[str, Any]) -> None:
 @shared_task(autoretry_for=(subprocess.CalledProcessError,), max_retries=2,
              default_retry_delay=600)
 def backup_database() -> str | None:
-    """Нічний pg_dump у файлове сховище (R2). Вмикається змінною BACKUP_ENABLED."""
+    """Nightly pg_dump to file storage (R2). Enabled with BACKUP_ENABLED."""
     if not settings.BACKUP_ENABLED:
         return None
     db = settings.DATABASES["default"]

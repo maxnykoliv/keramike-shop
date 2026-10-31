@@ -9,7 +9,7 @@ import { friendlyMessage } from "@/shared/api/errors";
 import type { PdfStatus } from "@/shared/api/types";
 import { Button, ButtonLink, Icon, Notice } from "@/shared/ui";
 
-/** Дії на сторінці збереженого кошторису. */
+/** Actions on a saved estimate page. */
 export function EstimateActions({ code, canAddToCart }: { code: string; canAddToCart: boolean }) {
   const router = useRouter();
   const { fromEstimate } = useCartActions();

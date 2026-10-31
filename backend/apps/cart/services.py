@@ -64,7 +64,7 @@ def remove_item(cart: Cart, item_id: int) -> None:
 
 @transaction.atomic
 def add_from_estimate(cart: Cart, estimate: Estimate) -> list[CartItem]:
-    """Додає товари з кошторису однією групою. Робота майстра в кошик не потрапляє."""
+    """Adds an estimate's products as one group. Labour does not go into the cart."""
     label = f"Кошторис {estimate.public_code}"
     added = []
     for line in estimate.result["lines"]:

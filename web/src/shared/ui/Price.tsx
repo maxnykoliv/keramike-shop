@@ -1,7 +1,7 @@
 import { cn } from "@/shared/lib/cn";
 import { formatUah, formatUnitPrice } from "@/shared/lib/money";
 
-/** Ціна: для майстра — його ціна головна, роздрібна поруч приглушено. */
+/** Price: for a master, their price is primary and the retail price is shown muted next to it. */
 export function Price({
   kop, retailKop, unit, size = "md", className,
 }: { kop: number; retailKop?: number | null; unit?: string; size?: "md" | "lg"; className?: string }) {

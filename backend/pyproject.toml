@@ -1,7 +1,7 @@
 [project]
 name = "keramike-backend"
 version = "0.1.0"
-description = "Бекенд магазину кераміки з калькулятором ремонту"
+description = "Backend of a ceramic tile shop with a renovation cost calculator"
 requires-python = ">=3.12"
 dependencies = [
     "Django>=5.2,<6.0",
@@ -68,13 +68,13 @@ exclude = ["migrations/"]
 [tool.django-stubs]
 django_settings_module = "config.settings.test"
 
-# Межі застосунків: імпорт лише вниз по шарах, рушій калькулятора без Django.
+# App boundaries: imports only go down the layers; the calculator engine has no Django.
 [tool.importlinter]
 root_packages = ["apps"]
 include_external_packages = true
 
 [[tool.importlinter.contracts]]
-name = "Шари застосунків: залежності лише вниз"
+name = "App layers: dependencies point down only"
 type = "layers"
 layers = [
     "apps.backoffice | apps.notifications | apps.checkout",
@@ -87,7 +87,7 @@ layers = [
 ]
 
 [[tool.importlinter.contracts]]
-name = "Рушій калькулятора не залежить від Django"
+name = "The calculator engine does not depend on Django"
 type = "forbidden"
 source_modules = ["apps.calc.engine"]
 forbidden_modules = ["django", "rest_framework", "apps.core", "apps.catalog", "apps.customers"]

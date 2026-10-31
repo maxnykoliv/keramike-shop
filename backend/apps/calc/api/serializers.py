@@ -74,14 +74,14 @@ class CalcInputSerializer(serializers.Serializer):
 
 
 class EstimateCreateSerializer(CalcInputSerializer):
-    # DRF прибирає оголошені поля з атрибутів класу, тож це не перекриває Field.source.
+    # DRF removes declared fields from class attributes, so this does not shadow Field.source.
     source = serializers.ChoiceField(  # type: ignore[assignment]
         choices=["calculator", "product_card"], default="calculator"
     )
     title = serializers.CharField(max_length=120, required=False, default="", allow_blank=True)
 
 
-# Відповіді — лише для схеми OpenAPI, з якої фронтенд генерує TypeScript-типи.
+# Response serializers exist only for the OpenAPI schema (the source of the frontend's TS types).
 class SurfaceResultSerializer(serializers.Serializer):
     kind = serializers.CharField()
     area_m2 = serializers.CharField()

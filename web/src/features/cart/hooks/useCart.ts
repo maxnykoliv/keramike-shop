@@ -28,7 +28,7 @@ export function useCartActions() {
     mutationFn: ({ id, qty }: { id: number; qty: number }) =>
       request<Cart>(`/api/cart/items/${id}`, { method: "PATCH", body: { qty } }),
     onMutate: async ({ id, qty }) => {
-      // Оптимістично міняємо лічильник, сервер потім уточнить суми.
+      // Update the counter optimistically; the server corrects the totals afterwards.
       await client.cancelQueries({ queryKey: CART_KEY });
       const previous = client.getQueryData<Cart>(CART_KEY);
       if (previous) setCart({ ...previous, lines: previous.lines.map((l) => (l.id === id ? { ...l, qty } : l)) });

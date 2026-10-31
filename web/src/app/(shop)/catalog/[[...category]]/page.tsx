@@ -21,7 +21,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
     title,
     description: `${title}: ціни, наявність, розрахунок кількості упаковок онлайн.`,
     alternates: { canonical: slug ? `/catalog/${slug}` : "/catalog" },
-    // Комбінації фільтрів не індексуємо — лише категорії.
+    // Filter combinations are not indexed, only categories.
     robots: filtered ? { index: false, follow: true } : undefined,
   };
 }

@@ -1,4 +1,4 @@
-"""Канали доставки одноразових кодів. Viber і SMS додаються новим класом і рядком у CHANNELS."""
+"""One-time code channels. Add Viber or SMS with a new class and an entry in CHANNELS."""
 
 from django.conf import settings
 
@@ -8,7 +8,7 @@ from apps.customers.channels.console import ConsoleChannel
 
 CHANNELS: dict[str, type] = {
     "console": ConsoleChannel,
-    # "viber": ViberChannel,  — через провайдера (TurboSMS тощо) з резервом SMS
+    # "viber": ViberChannel,  — via a provider (TurboSMS etc.) with SMS fallback
     # "sms": SmsChannel,
 }
 

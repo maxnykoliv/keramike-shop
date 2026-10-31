@@ -1,4 +1,4 @@
-"""Адмінка: сторінки відкриваються, права ролей працюють, кнопки змінюють статус."""
+"""Admin: pages open, role permissions work, buttons change status."""
 
 import pytest
 from django.contrib import admin

@@ -1,4 +1,4 @@
-"""Підписники на доменні події. Читають актуальний стан і ставлять розсилку в чергу."""
+"""Domain event subscribers. They read the current state and queue notifications."""
 
 from typing import Any
 

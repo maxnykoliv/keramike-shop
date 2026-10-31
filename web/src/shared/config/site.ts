@@ -1,6 +1,6 @@
 /**
- * Дані магазину. Контакти поки порожні: їх надасть замовник (відкрите питання в ТЗ).
- * Порожні поля на сайті не показуються.
+ * Shop details. Contacts are empty for now: the client will provide them (open question in the spec).
+ * Empty fields are not shown on the site.
  */
 export const site = {
   name: "Keramike",

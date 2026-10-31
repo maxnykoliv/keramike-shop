@@ -1,16 +1,16 @@
-/* Дизайн-токени Premium Minimalism. Єдине місце, де дозволені HEX-кольори.
-   Контраст перевірено проти фону #F7F5F0 (WCAG AA), див. ТЗ фронтенду. */
+/* Premium Minimalism design tokens. The only place where HEX colors are allowed.
+   Contrast is checked against the #F7F5F0 background (WCAG AA), see the frontend spec. */
 @theme {
-  --color-bg: #f7f5f0;            /* фон, теплий білий */
-  --color-text: #252522;          /* основний текст, графіт, 14,1:1 */
-  --color-surface: #e8e2d8;       /* другорядний фон */
-  --color-accent: #967b5b;        /* акцент: великі цифри, лінії, іконки (3,65:1 — лише великий текст) */
-  --color-accent-strong: #7a6247; /* дрібний акцентний текст і посилання, 5,26:1 */
-  --color-button: #292925;        /* головні кнопки, текст на них — bg */
+  --color-bg: #f7f5f0;            /* background, warm white */
+  --color-text: #252522;          /* body text, graphite, 14.1:1 */
+  --color-surface: #e8e2d8;       /* secondary background */
+  --color-accent: #967b5b;        /* accent: large figures, lines, icons (3.65:1, large text only) */
+  --color-accent-strong: #7a6247; /* small accent text and links, 5.26:1 */
+  --color-button: #292925;        /* primary buttons, with bg-colored text */
   --color-button-hover: #3a3a35;
-  --color-text-muted: #625d55;    /* підписи, 5,99:1 */
-  --color-line: #d9d1c4;          /* тонкі розділювачі, лише декор */
-  --color-line-strong: #857e70;   /* межі полів, 3,70:1 */
+  --color-text-muted: #625d55;    /* captions, 5.99:1 */
+  --color-line: #d9d1c4;          /* thin dividers, decorative only */
+  --color-line-strong: #857e70;   /* input borders, 3.70:1 */
   --color-error: #a3412f;
   --color-success: #4f6b4a;
 

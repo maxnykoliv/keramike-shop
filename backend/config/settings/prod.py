@@ -7,7 +7,7 @@ from .base import env
 
 DEBUG = False
 
-# Railway завершує TLS на проксі.
+# Railway terminates TLS at its proxy.
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 TRUSTED_PROXY_COUNT = env.int("TRUSTED_PROXY_COUNT", default=1)
 SECURE_SSL_REDIRECT = env.bool("SECURE_SSL_REDIRECT", default=True)

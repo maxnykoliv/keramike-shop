@@ -1,4 +1,4 @@
-"""Створення оплат, обробка webhook і повернення коштів."""
+"""Payment creation, webhook handling and refunds."""
 
 from typing import Any
 
@@ -18,7 +18,7 @@ logger = structlog.get_logger(__name__)
 
 
 def start_payment(order: Order) -> Payment | None:
-    """Створює посилання на оплату. Викликати після коміту замовлення."""
+    """Creates a payment link. Call after the order is committed."""
     if order.payment_method != PaymentMethod.ONLINE:
         return None
     if order.payment_status == PaymentStatus.PAID:
@@ -57,7 +57,7 @@ def handle_webhook(provider_name: str, data: dict[str, Any]) -> Payment:
         if payment is None:
             raise NotFound("Оплату не знайдено")
         if payment.status == result.status:
-            return payment  # повторний webhook
+            return payment  # repeated webhook
 
         payment.status = result.status
         payment.raw = result.raw
@@ -73,7 +73,7 @@ def handle_webhook(provider_name: str, data: dict[str, Any]) -> Payment:
 
 
 def refund_cancelled_order(payload: dict[str, Any]) -> None:
-    """Обробник події order.cancelled: повертає гроші, якщо замовлення було оплачене."""
+    """order.cancelled handler: refunds the money if the order was paid."""
     order = order_selectors.get_order(payload["order_id"])
     if order.payment_status != PaymentStatus.PAID:
         return

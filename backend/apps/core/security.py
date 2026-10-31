@@ -1,4 +1,4 @@
-"""Перевірка Cloudflare Turnstile на публічних формах і визначення IP клієнта."""
+"""Cloudflare Turnstile checks on public forms and client IP detection."""
 
 import hmac
 import ipaddress
@@ -16,7 +16,7 @@ VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify"
 def verify_turnstile(token: str | None, remote_ip: str | None) -> None:
     secret = settings.TURNSTILE_SECRET_KEY
     if not secret:
-        return  # вимкнено в розробці й тестах
+        return  # disabled in development and tests
     if not token:
         raise SpamSuspected()
     try:
@@ -28,7 +28,7 @@ def verify_turnstile(token: str | None, remote_ip: str | None) -> None:
         ok = response.json().get("success", False)
     except (requests.RequestException, ValueError):
         logger.warning("turnstile_unavailable")
-        return  # недоступність Cloudflare не має блокувати продажі
+        return  # a Cloudflare outage must not block sales
     if not ok:
         raise SpamSuspected()
 
@@ -41,12 +41,12 @@ def _valid_ip(value: str) -> str | None:
 
 
 def client_ip(request) -> str | None:
-    """IP клієнта для лімітів, блокування входу в адмінку й журналу сесій.
+    """Client IP for rate limits, admin login lockouts and the session log.
 
-    Сайт звертається до API від імені браузера й передає IP клієнта в X-Client-IP разом зі
-    спільним секретом. Без секрету цьому заголовку не віримо. У X-Forwarded-For клієнт може
-    дописати що завгодно зліва, тож беремо адресу, яку додав наш власний проксі (Railway):
-    TRUSTED_PROXY_COUNT-ту з кінця.
+    The site calls the API on behalf of the browser and passes the client IP in X-Client-IP
+    together with a shared secret. Without the secret the header is ignored. A client can
+    prepend anything to X-Forwarded-For, so we take the address added by our own proxy
+    (Railway): the TRUSTED_PROXY_COUNT-th entry from the end.
     """
     secret = settings.BFF_SHARED_SECRET
     if secret and hmac.compare_digest(request.headers.get("X-BFF-Secret", ""), secret):

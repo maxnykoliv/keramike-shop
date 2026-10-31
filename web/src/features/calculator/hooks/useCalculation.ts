@@ -11,7 +11,7 @@ export type Calculation =
   | { state: "invalid"; field: string; message: string }
   | { state: "loading" };
 
-/** Миттєвий розрахунок у браузері тим самим рушієм, що й на сервері (звіряє calc-cases). */
+/** Instant in-browser calculation with the same engine as the server (checked by calc-cases). */
 export function useCalculation(form: CalcForm, settings: CalcSettings | undefined,
   priceOf?: (id: number, fallback: number) => number): Calculation {
   return useMemo(() => {

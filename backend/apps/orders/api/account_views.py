@@ -8,7 +8,7 @@ from apps.orders.models import Order
 
 
 class AccountOrdersView(ListAPIView):
-    """Історія замовлень клієнта, разом із гостьовими з тим самим телефоном."""
+    """The customer's order history, including guest orders with the same phone number."""
 
     permission_classes = [IsAuthenticated]
     serializer_class = PublicOrderSerializer

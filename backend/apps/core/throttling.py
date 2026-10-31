@@ -2,11 +2,11 @@ from rest_framework.throttling import ScopedRateThrottle as BaseScopedRateThrott
 
 
 class ScopedRateThrottle(BaseScopedRateThrottle):
-    """Ліміти за справжнім IP клієнта, а не за X-Forwarded-For, який легко підробити."""
+    """Rate limits by the real client IP rather than X-Forwarded-For, which is easy to spoof."""
 
     def get_ident(self, request) -> str:
-        # Імпорт тут: DRF завантажує цей клас під час імпорту apps.core.exceptions,
-        # від якого залежить apps.core.security.
+        # Imported here: DRF loads this class while apps.core.exceptions is being imported,
+        # and apps.core.security depends on that module.
         from apps.core.security import client_ip
 
         return client_ip(request) or "unknown"

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Django для e2e: окрема база, чисті демо-дані, фейкова оплата, коди входу у файл.
-# Запускає Playwright (webServer), вручну: E2E_DATABASE_URL=... ./e2e/backend.sh
+# Django for e2e: a separate database, fresh demo data, fake payments, login codes written to a file.
+# Playwright starts it (webServer); by hand: E2E_DATABASE_URL=... ./e2e/backend.sh
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
@@ -31,7 +31,7 @@ mkdir -p "$(dirname "$AUTH_CONSOLE_OUTBOX_FILE")"
 : > "$AUTH_CONSOLE_OUTBOX_FILE"
 
 "$PY" - <<'PY'
-# База e2e створюється, якщо її ще немає (користувачу потрібне право CREATEDB).
+# The e2e database is created if missing (the user needs the CREATEDB privilege).
 import os, urllib.parse, psycopg
 url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
 name = url.path.lstrip("/")

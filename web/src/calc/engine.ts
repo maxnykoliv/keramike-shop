@@ -1,6 +1,6 @@
-// Порт рушія калькулятора з backend/apps/calc/engine/core.py.
-// Лише для миттєвого показу в браузері: остаточну суму завжди рахує сервер.
-// Збіг до копійки перевіряють спільні еталони calc-cases.
+// Port of the calculator engine from backend/apps/calc/engine/core.py.
+// Only for instant display in the browser: the server always computes the final total.
+// The shared calc-cases golden files check that both agree to the kopiyka.
 
 import DecimalBase from "decimal.js";
 import type {
@@ -14,7 +14,7 @@ import type {
   TileInput,
 } from "./types";
 
-// Як контекст decimal у Python: 28 значущих цифр, банківське округлення проміжних операцій.
+// Like Python's decimal context: 28 significant digits, banker's rounding for intermediate steps.
 const Decimal = DecimalBase.clone({ precision: 28, rounding: DecimalBase.ROUND_HALF_EVEN });
 type D = InstanceType<typeof Decimal>;
 

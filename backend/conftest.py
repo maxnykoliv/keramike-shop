@@ -75,7 +75,7 @@ def _clear_cache():
 
 @pytest.fixture(autouse=True)
 def mocked_http():
-    """Будь-який незамоканий HTTP-запит у тестах падає. Telegram відповідає успіхом."""
+    """Any unmocked HTTP request in tests fails. Telegram always responds with success."""
     with responses.RequestsMock(assert_all_requests_are_fired=False) as rsps:
         rsps.add(responses.POST, TELEGRAM_URL, json={"ok": True})
         rsps.add(responses.POST, LOGIN_BOT_URL, json={"ok": True})
@@ -89,7 +89,7 @@ def api() -> APIClient:
 
 @pytest.fixture
 def run_on_commit(django_capture_on_commit_callbacks):
-    """Виконує колбеки on_commit (події) у межах тестової транзакції."""
+    """Runs on_commit callbacks (events) inside the test transaction."""
     def runner():
         return django_capture_on_commit_callbacks(execute=True)
     return runner
@@ -102,7 +102,7 @@ def calc_settings_dict() -> dict:
 
 @pytest.fixture
 def published_settings(db, calc_settings_dict) -> CalcSettings:
-    """Опубліковані налаштування, що відповідають calc-cases/settings.json."""
+    """Published settings matching calc-cases/settings.json."""
     data = calc_settings_dict
     materials = {
         kind: make_material(kind, name=item["name"], pack_size=item["pack_size"],
@@ -134,7 +134,7 @@ def tile(db) -> Product:
 
 @pytest.fixture
 def customer_api(db):
-    """Повертає (клієнт API з токеном, клієнт). Параметр master робить клієнта майстром."""
+    """Returns (API client with a token, customer). The master flag makes the customer a master."""
     from apps.customers import services as customer_services
     from apps.customers.models import Customer
 

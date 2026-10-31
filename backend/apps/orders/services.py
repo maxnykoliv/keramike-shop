@@ -1,4 +1,4 @@
-"""Єдине місце зміни стану замовлень."""
+"""The single place where order state changes."""
 
 from dataclasses import dataclass
 from decimal import Decimal
@@ -51,7 +51,7 @@ class PricedLine:
 
 def build_lines(requests: list[LineRequest], *, require_available: bool = True,
                 master: bool = False) -> list[PricedLine]:
-    """Рахує рядки за актуальними цінами з БД. Ціні з браузера не довіряємо."""
+    """Prices lines at current DB prices. Prices from the browser are never trusted."""
     products = products_by_ids([r.product_id for r in requests])
     lines = []
     for request in requests:
@@ -197,15 +197,15 @@ def _ensure_editable(order: Order) -> None:
 
 
 def claim_guest_orders(payload: dict[str, Any]) -> None:
-    """Обробник події customer.logged_in: гостьові замовлення з тим самим телефоном
-    переходять у кабінет клієнта."""
+    """customer.logged_in handler: guest orders with the same phone number
+    move into the customer's account."""
     Order.objects.filter(customer__isnull=True, phone=payload["phone"]).update(
         customer_id=payload["customer_id"])
 
 
 @transaction.atomic
 def reprice(order_id: int) -> Order:
-    """Перераховує позиції й суми після правок менеджера."""
+    """Recalculates lines and totals after a manager's edits."""
     order = _lock(order_id)
     _ensure_editable(order)
     items = list(order.items.select_related("product__tile_spec"))

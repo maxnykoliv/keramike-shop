@@ -4,7 +4,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { SESSION_COOKIE } from "@/shared/api/cookies";
 import { callApi, forwardHeaders, readJson } from "@/shared/api/proxy";
 
-/** Профіль поточного клієнта для інтерфейсу. Токен у відповідь не потрапляє. */
+/** The current customer's profile for the UI. The token is never included in the response. */
 export async function GET(req: NextRequest) {
   const token = (await cookies()).get(SESSION_COOKIE)?.value;
   if (!token) return NextResponse.json({ customer: null });

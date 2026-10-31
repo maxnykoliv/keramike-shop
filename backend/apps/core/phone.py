@@ -1,4 +1,4 @@
-"""Нормалізація телефонів до E.164. За телефоном пов'язуються клієнт, замовлення і Telegram."""
+"""Phone normalization to E.164. The phone number links customers, orders and Telegram."""
 
 import re
 

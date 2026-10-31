@@ -3,7 +3,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { LOGIN_COOKIE, LOGIN_MAX_AGE, cookieOptions } from "@/shared/api/cookies";
 import { callApi, forwardHeaders, isSameOrigin, jsonError, readJson } from "@/shared/api/proxy";
 
-/** Старт входу: секрет опитування лишається в httpOnly cookie, браузер отримує лише посилання на бота. */
+/** Login start: the polling secret stays in an httpOnly cookie; the browser only gets the bot link. */
 export async function POST(req: NextRequest) {
   if (!isSameOrigin(req)) return jsonError(403, "forbidden_origin", "Запит з іншого сайту відхилено");
   const response = await callApi("auth/telegram/start", { method: "POST", headers: forwardHeaders(req, null, false) });

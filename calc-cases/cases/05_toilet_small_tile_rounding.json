@@ -1,5 +1,5 @@
 {
-  "name": "Туалет 1,05×1,05 м, плитка 20×20 поштучно в упаковці, округлення площі",
+  "name": "Toilet 1.05×1.05 m, 20×20 tile packed by pieces, area rounding",
   "input": {
     "room": "toilet",
     "surfaces": [

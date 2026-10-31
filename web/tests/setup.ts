@@ -1,2 +1,2 @@
-// Спільне налаштування Vitest (vitest.config.ts → setupFiles).
+// Shared Vitest setup (vitest.config.ts → setupFiles).
 export {};

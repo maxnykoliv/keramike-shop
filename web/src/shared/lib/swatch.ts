@@ -1,4 +1,4 @@
-/** Кольори «зразка» плитки, поки немає фото. Це контент, а не кольори інтерфейсу. */
+/** Tile swatch colors used until there is a photo. This is content, not UI colors. */
 const PALETTE: Array<[RegExp, string, string]> = [
   [/сір|grey|gray/i, "#c9c6c0", "#b9b5ae"],
   [/біл|white/i, "#efece6", "#e2ddd4"],

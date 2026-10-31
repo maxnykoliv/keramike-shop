@@ -1,13 +1,13 @@
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
 
-// Межі модулів (як import-linter на бекенді): shared не знає про features,
-// features імпортують один одного лише через index.ts, calc не знає про React.
+// Module boundaries (like import-linter on the backend): shared knows nothing about features,
+// features import each other only through index.ts, calc knows nothing about React.
 const boundaries = {
   files: ["src/shared/**", "src/calc/**"],
   rules: {
     "no-restricted-imports": ["error", { patterns: [
-      { group: ["@/features/*", "@/app/*"], message: "shared і calc не залежать від features чи app" },
+      { group: ["@/features/*", "@/app/*"], message: "shared and calc must not depend on features or app" },
     ] }],
   },
 };
@@ -15,8 +15,8 @@ const featureBoundaries = {
   files: ["src/features/**"],
   rules: {
     "no-restricted-imports": ["error", { patterns: [
-      { group: ["@/features/*/*"], message: "Імпортуйте інший модуль лише через його index.ts" },
-      { group: ["@/app/*"], message: "features не залежать від app" },
+      { group: ["@/features/*/*"], message: "Import another module only through its index.ts" },
+      { group: ["@/app/*"], message: "features must not depend on app" },
     ] }],
   },
 };
@@ -25,7 +25,7 @@ const noRawColors = {
   rules: {
     "no-restricted-syntax": ["error", {
       selector: "Literal[value=/#[0-9a-fA-F]{6}\\b/]",
-      message: "Кольори лише через токени з tokens.css",
+      message: "Use colors only through tokens from tokens.css",
     }],
   },
 };

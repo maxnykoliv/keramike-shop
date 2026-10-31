@@ -1,4 +1,4 @@
-"""Клієнт API Нової пошти 2.0."""
+"""Nova Poshta API 2.0 client."""
 
 from decimal import Decimal
 from typing import Any

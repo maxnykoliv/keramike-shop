@@ -1,5 +1,5 @@
 {
-  "name": "Прорізи більші за площу стін",
+  "name": "Openings larger than the wall area",
   "input": {
     "room": "hallway",
     "surfaces": [

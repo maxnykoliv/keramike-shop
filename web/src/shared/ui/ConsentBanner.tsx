@@ -25,7 +25,7 @@ function needsConsent(): boolean {
   }
 }
 
-/** Згода на аналітичні cookies. Без згоди події в GA4 не надсилаються. */
+/** Consent for analytics cookies. Without consent no events are sent to GA4. */
 export function ConsentBanner() {
   const visible = useSyncExternalStore(subscribe, needsConsent, () => false);
   if (!visible) return null;
@@ -33,7 +33,7 @@ export function ConsentBanner() {
     try {
       window.localStorage.setItem(CONSENT_KEY, value);
     } catch {
-      /* сховище недоступне — банер просто зникне до перезавантаження */
+      /* storage unavailable: the banner just disappears until reload */
     }
     window.dispatchEvent(new Event(EVENT));
   };

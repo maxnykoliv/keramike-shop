@@ -7,8 +7,8 @@ import { bff } from "@/shared/api/client";
 import type { PricesResponse } from "@/shared/api/types";
 
 /**
- * Ціни майстра поверх кешованого каталогу. Для звичайних клієнтів запит не робиться:
- * каталог уже показує роздрібні ціни.
+ * Master prices on top of the cached catalog. No request is made for regular customers:
+ * the catalog already shows retail prices.
  */
 export function usePersonalPrices(ids: number[]) {
   const { isMaster } = useSession();

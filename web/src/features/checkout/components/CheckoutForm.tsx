@@ -68,7 +68,7 @@ export function CheckoutForm() {
   });
   const values = useWatch({ control });
 
-  // Підставляємо дані клієнта, що увійшов, і його основну адресу.
+  // Prefill the logged-in customer's details and their default address.
   useEffect(() => {
     if (!customer) return;
     const current = getValues();
@@ -93,7 +93,7 @@ export function CheckoutForm() {
     return () => clearTimeout(timer);
   }, [values, getValues]);
 
-  // Вартість доставки: рахує бекенд, сайт показує й передає quote_id в замовлення.
+  // Delivery cost: the backend quotes it; the site shows it and passes quote_id to the order.
   const method = values.delivery_method;
   const cityRef = values.np?.cityRef;
   const quoteQuery = useQuery({
@@ -105,7 +105,7 @@ export function CheckoutForm() {
   const quote = quoteQuery.data ?? null;
   const quoteLoading = quoteQuery.isFetching;
 
-  // Без вибраного міста розрахунок для Нової пошти не діє.
+  // Without a selected city there is no Nova Poshta quote.
   const activeQuote = method === "pickup" || (method === "nova_poshta" && !cityRef) ? null : quote;
 
   const idempotencyKey = useMemo(() => {

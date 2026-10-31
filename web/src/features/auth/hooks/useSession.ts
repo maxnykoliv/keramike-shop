@@ -18,7 +18,7 @@ export function useSession() {
   return { customer, isMaster: Boolean(customer?.is_master), isLoading: query.isLoading };
 }
 
-/** Після входу й виходу скидаємо все, що залежить від статусу клієнта: ціни майстра, кошик, калькулятор. */
+/** After login and logout, reset everything that depends on the customer's status: master prices, cart, calculator. */
 export function useRefreshAfterAuth() {
   const client = useQueryClient();
   return useCallback(async () => {

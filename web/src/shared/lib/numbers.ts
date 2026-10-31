@@ -1,4 +1,4 @@
-/** «2,5» → «2.5». Повертає null, якщо це не число. */
+/** "2,5" → "2.5". Returns null if it is not a number. */
 export function parseDecimal(value: string | number | null | undefined): string | null {
   if (value === null || value === undefined) return null;
   const text = String(value).trim().replace(/\s/g, "").replace(",", ".");

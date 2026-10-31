@@ -4,7 +4,7 @@ import { NextResponse, type NextRequest } from "next/server";
 
 import { apiUrl, clientIpHeaders } from "./server";
 
-/** Заголовки, які сервер Next.js передає в Django від імені браузера. */
+/** Headers the Next.js server forwards to Django on behalf of the browser. */
 export function forwardHeaders(req: NextRequest, token: string | null, withBody: boolean): Record<string, string> {
   const headers: Record<string, string> = { Accept: "application/json" };
   if (withBody) headers["Content-Type"] = "application/json";
@@ -19,7 +19,7 @@ export function forwardHeaders(req: NextRequest, token: string | null, withBody:
   return headers;
 }
 
-/** Захист від CSRF для запитів, що змінюють дані: Origin має збігатися з хостом сайту. */
+/** CSRF protection for state-changing requests: Origin must match the site host. */
 export function isSameOrigin(req: NextRequest): boolean {
   const origin = req.headers.get("origin");
   if (!origin) return false;

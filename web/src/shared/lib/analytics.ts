@@ -1,4 +1,4 @@
-/** Події воронки (див. ТЗ фронтенду). Надсилаються в GA4 лише після згоди на cookies. */
+/** Funnel events (see the frontend spec). Sent to GA4 only after cookie consent. */
 export type AnalyticsEvent =
   | "calculator_start" | "calculator_result" | "estimate_saved" | "estimate_shared"
   | "estimate_pdf" | "generate_lead" | "add_to_cart" | "begin_checkout" | "purchase" | "login";
@@ -17,7 +17,7 @@ export function hasConsent(): boolean {
 
 export function track(event: AnalyticsEvent, params: Record<string, string | number | boolean> = {}): void {
   if (typeof window === "undefined") return;
-  // Особисті дані (ім'я, телефон, email) в аналітику не передаються.
+  // Personal data (name, phone, email) is never sent to analytics.
   const w = window as DataLayerWindow;
   w.dataLayer = w.dataLayer ?? [];
   if (hasConsent()) w.dataLayer.push({ event, ...params });

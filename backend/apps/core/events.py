@@ -1,7 +1,7 @@
-"""Шина доменних подій.
+"""Domain event bus.
 
-Нижчі шари публікують подію, вищі підписуються в AppConfig.ready. Подія йде в чергу
-лише після успішного коміту транзакції, тож відкат нічого не надсилає.
+Lower layers publish events and higher layers subscribe in AppConfig.ready. An event is
+queued only after the transaction commits, so a rollback sends nothing.
 """
 
 from collections import defaultdict
@@ -29,7 +29,7 @@ def publish(event: str, payload: dict[str, Any]) -> None:
 
 
 def dispatch(event: str, payload: dict[str, Any]) -> None:
-    """Викликає всіх підписників. Збій одного не зупиняє інших."""
+    """Calls every subscriber. One failing does not stop the others."""
     for handler in list(_handlers.get(event, [])):
         try:
             handler(payload)

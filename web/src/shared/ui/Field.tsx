@@ -4,7 +4,7 @@ import { cn } from "@/shared/lib/cn";
 
 export type FieldIds = { inputId: string; describedBy: string | undefined; invalid: boolean };
 
-/** Підпис над полем, підказка й помилка під ним, зв'язані через aria-describedby. */
+/** Label above the field, hint and error below it, linked with aria-describedby. */
 export function Field({
   label, hint, error, className, children, id,
 }: {

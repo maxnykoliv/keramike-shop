@@ -1,9 +1,9 @@
-"""Рушій калькулятора: джерело істини для всіх сум.
+"""The calculator engine: the source of truth for every amount.
 
-Правила, які мають збігатися з портом на TypeScript (перевіряють calc-cases):
-- площа округлюється до 0,01 м² за ROUND_HALF_UP;
-- упаковки, мішки, відра — завжди вгору до цілого;
-- сума плитки = упаковки × м² в упаковці × ціна за м², округлення до копійки один раз.
+Rules that must match the TypeScript port (checked by calc-cases):
+- area is rounded to 0.01 m² with ROUND_HALF_UP;
+- packs, bags and buckets always round up to a whole number;
+- tile total = packs × m² per pack × price per m², rounded to the kopiyka once.
 """
 
 from decimal import ROUND_CEILING, ROUND_HALF_UP, Decimal

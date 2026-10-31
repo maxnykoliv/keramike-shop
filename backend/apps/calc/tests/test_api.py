@@ -54,7 +54,7 @@ def test_estimate_manual_tile(api, published_settings):
     }
     response = api.post("/api/v1/calc/estimate", payload, format="json")
     assert response.status_code == 200
-    assert response.json()["surfaces"][0]["packs"] == 11  # 11 м² / 1,08
+    assert response.json()["surfaces"][0]["packs"] == 11  # 11 m² / 1.08
 
 
 def test_validation_error_format(api, published_settings, tile):

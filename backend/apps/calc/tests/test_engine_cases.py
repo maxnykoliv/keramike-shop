@@ -1,4 +1,4 @@
-"""Еталонні випадки calc-cases. Ті самі файли проганяє Vitest для порту на TypeScript."""
+"""calc-cases golden tests. Vitest runs the same files against the TypeScript port."""
 
 import json
 from pathlib import Path

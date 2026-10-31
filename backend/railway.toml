@@ -1,5 +1,5 @@
-# Конфігурація сервісу api. Сервіси worker і beat використовують той самий образ,
-# але в налаштуваннях Railway мають власну команду запуску (див. README).
+# Config for the api service. The worker and beat services use the same image
+# with their own start command in the Railway settings (see README).
 [build]
 builder = "DOCKERFILE"
 dockerfilePath = "Dockerfile"

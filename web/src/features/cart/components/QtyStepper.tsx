@@ -2,7 +2,7 @@
 
 import { Icon } from "@/shared/ui";
 
-/** − число +: кількість лише цілими упаковками. */
+/** − number +: quantity in whole packs only. */
 export function QtyStepper({
   value, onChange, min = 1, max = 9999, label, disabled,
 }: { value: number; onChange: (value: number) => void; min?: number; max?: number; label: string; disabled?: boolean }) {

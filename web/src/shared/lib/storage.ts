@@ -1,4 +1,4 @@
-/** Безпечний доступ до localStorage/sessionStorage: у приватному режимі він може кидати. */
+/** Safe access to localStorage/sessionStorage, which can throw in private mode. */
 type Kind = "local" | "session";
 
 function store(kind: Kind): Storage | null {
@@ -22,7 +22,7 @@ export function writeJson(key: string, value: unknown, kind: Kind = "local"): vo
   try {
     store(kind)?.setItem(key, JSON.stringify(value));
   } catch {
-    /* немає місця або заборонено — чернетка просто не збережеться */
+    /* out of space or blocked: the draft simply is not saved */
   }
 }
 

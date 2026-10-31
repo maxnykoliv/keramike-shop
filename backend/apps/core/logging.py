@@ -1,11 +1,11 @@
-"""Логи у JSON через structlog. Телефони й email маскуються."""
+"""JSON logs via structlog. Phone numbers and emails are masked."""
 
 import re
 from typing import Any
 
 import structlog
 
-# Українські номери: +380 67 123 45 67, 0671234567, (067) 123-45-67.
+# Ukrainian numbers: +380 67 123 45 67, 0671234567, (067) 123-45-67.
 PHONE_RE = re.compile(
     r"(?<![\w:-])(?:\+?38)?\(?0[\s)]*\d{2}[\s)-]*\d{3}[\s-]*\d{2}[\s-]*\d{2}(?![\d:])"
 )

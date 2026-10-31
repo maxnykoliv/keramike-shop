@@ -4,7 +4,7 @@ import { mediaUrl } from "@/shared/lib/media";
 
 import { TileSwatch } from "./TileSwatch";
 
-/** Фото товару або зразок плитки. Пропорція 4:5, як у ТЗ. */
+/** Product photo or a tile swatch. 4:5 aspect ratio, as in the spec. */
 export function ProductVisual({
   image, name, size, color, sizes = "(min-width: 768px) 33vw, 50vw", priority, className,
 }: {

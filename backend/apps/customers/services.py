@@ -1,4 +1,4 @@
-"""Вхід клієнтів: сесії, Telegram-бот, одноразові коди."""
+"""Customer login: sessions, Telegram bot, one-time codes."""
 
 import hashlib
 import hmac
@@ -47,7 +47,7 @@ class LoginResult:
     session: CustomerSession
 
 
-# --- Сесії -----------------------------------------------------------------
+# --- Sessions --------------------------------------------------------------
 
 
 def _session_ttl() -> timedelta:
@@ -82,7 +82,7 @@ def authenticate_token(token: str) -> CustomerSession | None:
     if session is None or session.expires_at <= now or not session.customer.is_active:
         return None
     if now - session.last_used_at > SESSION_TOUCH_EVERY:
-        # Ковзний термін: активні клієнти не розлогінюються.
+        # Sliding expiry: active customers stay logged in.
         CustomerSession.objects.filter(pk=session.pk).update(
             last_used_at=now, expires_at=now + _session_ttl()
         )
@@ -108,7 +108,7 @@ def get_or_create_customer(
         customer = (
             Customer.objects.select_for_update().filter(telegram_user_id=telegram_user_id).first()
         )
-        # Номер у Telegram змінився: переносимо, якщо новий ще ні за ким не закріплений.
+        # The Telegram number changed: move it over unless the new one belongs to someone else.
         if (customer and customer.phone != phone
                 and not Customer.objects.filter(phone=phone).exclude(pk=customer.pk).exists()):
             customer.phone = phone
@@ -135,11 +135,11 @@ def get_or_create_customer(
     return customer
 
 
-# --- Вхід через Telegram ----------------------------------------------------
+# --- Login via Telegram ----------------------------------------------------
 
 
 def start_telegram_login() -> tuple[TelegramLogin, str]:
-    """Повертає спробу входу і секрет опитування, який знає лише браузер."""
+    """Returns the login attempt and a polling secret known only to the browser."""
     if not settings.TELEGRAM_LOGIN_BOT_USERNAME:
         raise DomainError("Вхід через Telegram не налаштований", code="channel_unavailable")
     poll_secret = secrets.token_urlsafe(24)
@@ -152,7 +152,7 @@ def start_telegram_login() -> tuple[TelegramLogin, str]:
 
 
 def _reply(chat_id: int, text: str, reply_markup: dict[str, Any] | None = None) -> None:
-    """Відповідь бота — лише після коміту: HTTP-запитів усередині транзакції не робимо."""
+    """Bot replies go out only after commit: no HTTP calls inside a transaction."""
     transaction.on_commit(lambda: telegram.send_message(chat_id, text, reply_markup=reply_markup))
 
 
@@ -285,7 +285,7 @@ def poll_telegram_login(
         return "confirmed", login(customer, user_agent=user_agent, ip=ip)
 
 
-# --- Одноразові коди (Viber, SMS) -------------------------------------------
+# --- One-time codes (Viber, SMS) -------------------------------------------
 
 
 def request_code(phone: str, channel_name: str) -> PhoneCode:
@@ -331,7 +331,7 @@ def verify_code(
     return login(customer, user_agent=user_agent, ip=ip)
 
 
-# --- Кабінет -----------------------------------------------------------------
+# --- Account ---------------------------------------------------------------
 
 
 @transaction.atomic

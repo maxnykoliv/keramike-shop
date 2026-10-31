@@ -1,8 +1,8 @@
 "use client";
 
-/* eslint-disable no-restricted-syntax -- тут не підключено tokens.css, кольори з палітри вписані напряму */
+/* eslint-disable no-restricted-syntax -- tokens.css is not loaded here, so palette colors are inlined */
 
-/** Остання лінія: впав сам кореневий layout. Без шрифтів і компонентів — лише HTML. */
+/** Last resort: the root layout itself crashed. No fonts or components, just HTML. */
 export default function GlobalError({ reset }: { error: Error; reset: () => void }) {
   return (
     <html lang="uk">

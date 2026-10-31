@@ -4,7 +4,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { CART_COOKIE, SESSION_COOKIE } from "@/shared/api/cookies";
 import { callApi, forwardHeaders, isSameOrigin, jsonError, readJson } from "@/shared/api/proxy";
 
-/** Оформлення: підставляємо токен кошика з cookie, після успіху кошик закритий і cookie знімається. */
+/** Checkout: adds the cart token from the cookie; on success the cart is closed and the cookie is cleared. */
 export async function POST(req: NextRequest) {
   if (!isSameOrigin(req)) return jsonError(403, "forbidden_origin", "Запит з іншого сайту відхилено");
   const store = await cookies();

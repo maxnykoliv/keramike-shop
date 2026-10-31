@@ -46,7 +46,7 @@ def get_cart_for_update(token: str) -> Cart:
 
 
 def cart_view(cart: Cart, *, master: bool = False) -> CartView:
-    """Кошик з актуальними цінами з каталогу, вагою і перевіркою залишків."""
+    """The cart with current catalog prices, weight and stock checks."""
     items = cart.items.select_related("product__tile_spec", "product__material_spec")
     lines = [
         CartLine(item_id=item.id, group_label=item.group_label,

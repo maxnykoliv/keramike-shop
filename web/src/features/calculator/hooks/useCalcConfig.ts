@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import type { CalcSettings } from "@/calc";
 import { bff } from "@/shared/api/client";
 
-/** Активні налаштування калькулятора. Для майстра бекенд одразу підставляє його ціни матеріалів. */
+/** Active calculator settings. For a master, the backend already includes their material prices. */
 export function useCalcConfig() {
   return useQuery({
     queryKey: ["calc-config"],

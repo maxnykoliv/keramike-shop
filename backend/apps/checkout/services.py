@@ -1,6 +1,6 @@
-"""Оформлення: кошик → замовлення → оплата.
+"""Checkout: cart → order → payment.
 
-Окремий застосунок розриває цикл orders ↔ payments: замовлення не знає про оплату.
+A separate app breaks the orders ↔ payments cycle: orders know nothing about payments.
 """
 
 from dataclasses import dataclass
@@ -77,7 +77,7 @@ def place_order(*, cart_token: str, customer: order_services.Customer, delivery_
                 delivery: dict[str, Any], payment_method: str, quote_id: str | None = None,
                 idempotency_key: str | None = None,
                 account: Customer | None = None) -> CheckoutResult:
-    """account — клієнт, що увійшов: замовлення потрапить у кабінет, ціни майстра враховано."""
+    """account is the logged-in customer: the order joins their account, master prices apply."""
     existing = _existing(idempotency_key)
     if existing:
         return existing
@@ -85,13 +85,13 @@ def place_order(*, cart_token: str, customer: order_services.Customer, delivery_
         order = _create(cart_token, customer, delivery_method, delivery, payment_method,
                         quote_id, idempotency_key, account)
     except IntegrityError:
-        # Паралельний запит з тим самим ключем устиг першим.
+        # A concurrent request with the same key got there first.
         existing = _existing(idempotency_key)
         if existing:
             return existing
         raise
 
-    # HTTP-запит до провайдера — лише після коміту замовлення.
+    # Call the payment provider only after the order is committed.
     try:
         payment = payment_services.start_payment(order)
     except ProviderUnavailable:

@@ -4,7 +4,7 @@ import structlog
 
 
 class RequestIdMiddleware:
-    """Додає request_id до кожного запису логу і до заголовка відповіді."""
+    """Adds request_id to every log record and to the response headers."""
 
     def __init__(self, get_response):
         self.get_response = get_response

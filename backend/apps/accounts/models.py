@@ -24,7 +24,7 @@ class UserManager(BaseUserManager["User"]):
 
 
 class User(AbstractUser):
-    """Лише персонал магазину. Клієнти працюють без реєстрації."""
+    """Shop staff only. Customers are a separate model (customers.Customer)."""
 
     username = None  # type: ignore[assignment, misc]
     email = models.EmailField("email", unique=True)

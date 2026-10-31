@@ -4,7 +4,7 @@ import { cn } from "@/shared/lib/cn";
 
 export type RadioOption<T extends string> = { value: T; label: ReactNode; description?: ReactNode; icon?: ReactNode };
 
-/** Набір варіантів у вигляді карток: тонка рамка, обраний — графітова рамка. */
+/** Options as cards: thin border, graphite border when selected. */
 export function RadioCards<T extends string>({
   legend, name, value, onChange, options, columns = 2, error,
 }: {

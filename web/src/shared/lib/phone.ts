@@ -1,4 +1,4 @@
-/** Те саме правило, що й у бекенді (core/phone.py): номер у форматі E.164. */
+/** Same rule as the backend (core/phone.py): an E.164 number. */
 export function normalizePhone(value: string): string | null {
   const raw = (value ?? "").trim();
   let digits = raw.replace(/\D/g, "");

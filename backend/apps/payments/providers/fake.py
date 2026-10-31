@@ -1,4 +1,4 @@
-"""Провайдер для розробки й тестів: підпис HMAC-SHA256 ключем PAYMENT_PRIVATE_KEY."""
+"""Development and test provider: HMAC-SHA256 signature with PAYMENT_PRIVATE_KEY."""
 
 import hashlib
 import hmac

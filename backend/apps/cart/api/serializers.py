@@ -59,7 +59,7 @@ class CartLineSerializer(serializers.Serializer):
 
 
 class CartSerializer(serializers.Serializer):
-    """Лише для схеми OpenAPI: відповідь будує cart_to_dict."""
+    """For the OpenAPI schema only: cart_to_dict builds the response."""
 
     token = serializers.CharField()
     lines = CartLineSerializer(many=True)

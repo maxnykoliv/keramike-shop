@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Сайт магазину кераміки Keramike: Next.js, калькулятор ремонту, кабінет клієнта.",
+  "description": "Keramike ceramic tile shop site: Next.js, renovation calculator, customer account.",
   "scripts": {
     "dev": "next dev -p 3000",
     "build": "next build",

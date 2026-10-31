@@ -5,7 +5,7 @@ import { Price, ProductVisual } from "@/shared/ui";
 
 const STOCK: Record<string, string> = { on_order: "Під замовлення", out_of_stock: "Немає в наявності" };
 
-/** Велика картка без рамки: фото 4:5, назва, розмір, ціна за м². Вся картка — посилання. */
+/** A large borderless card: 4:5 photo, name, size, price per m². The whole card is a link. */
 export function ProductCard({ product, priceKop }: { product: Product; priceKop?: number }) {
   const price = priceKop ?? product.price_kop;
   return (
