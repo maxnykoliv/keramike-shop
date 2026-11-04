@@ -208,6 +208,8 @@ CELERY_RESULT_BACKEND = None
 CELERY_TASK_DEFAULT_QUEUE = "default"
 CELERY_TASK_ACKS_LATE = True
 CELERY_WORKER_PREFETCH_MULTIPLIER = 1
+# A demo deploy without worker and beat services runs tasks inside the request instead.
+CELERY_TASK_ALWAYS_EAGER = env.bool("CELERY_TASK_ALWAYS_EAGER", default=False)
 CELERY_TASK_ROUTES = {
     "apps.calc.tasks.render_estimate_pdf": {"queue": "heavy"},
     "apps.catalog.tasks.process_image": {"queue": "heavy"},
