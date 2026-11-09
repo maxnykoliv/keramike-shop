@@ -1,8 +1,32 @@
 # Keramike
 
+[![Backend CI](https://github.com/maxnykoliv/keramike-shop/actions/workflows/backend.yml/badge.svg)](https://github.com/maxnykoliv/keramike-shop/actions/workflows/backend.yml)
+[![Web CI](https://github.com/maxnykoliv/keramike-shop/actions/workflows/web.yml/badge.svg)](https://github.com/maxnykoliv/keramike-shop/actions/workflows/web.yml)
+
 An online ceramic tile shop with a renovation cost calculator. A customer picks a tile and enters
 the room dimensions. The site shows right away how many packs to buy, which materials go with them,
 what the labour costs and the total. The site's interface is in Ukrainian.
+
+**Live site:** <https://keramike-shop.vercel.app>
+
+| Home | Catalog | Calculator |
+| --- | --- | --- |
+| ![Home page](docs/screenshots/home.png) | ![Catalog with faceted filters](docs/screenshots/catalog.png) | ![Renovation calculator](docs/screenshots/calculator.png) |
+
+## Highlights
+
+- **One pricing engine, two languages.** The calculator runs in TypeScript in the browser for
+  instant feedback and in Python on the server for the final totals. Both run the same golden cases
+  in `calc-cases/`, and CI fails if they differ by even one kopiyka.
+- **The browser never talks to the API.** The Next.js 16 server is a backend-for-frontend: auth
+  tokens live only in httpOnly cookies, and every request is proxied through route handlers.
+- **Typed end to end.** The frontend client is generated from the backend's OpenAPI schema, and CI
+  checks that the schema matches the code.
+- **Layered modular monolith.** 12 Django apps in strict layers, enforced by import-linter in CI.
+  Business logic lives only in services; views, admin and Celery tasks stay thin.
+- **Real checkout flow.** Stock reservation, Nova Poshta delivery quotes and LiqPay payments.
+- **Quality gates.** pytest on PostgreSQL, Vitest, Playwright, ruff, mypy, ESLint and TypeScript
+  checks in GitHub Actions.
 
 ## Features
 
